@@ -1,23 +1,14 @@
-import React from 'react'
+import React from "react";
 import { Bar } from "react-chartjs-2";
 // https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/VerticalBar.js
-function BarChart({rawData,topic}) {
-
-  const areaLabels = rawData.features.map((item) => {
-    return item.properties.phn_name;
-  });
-
-
-    const smokerRate = rawData.features.map((item) => {
-      return item.properties.perc;
-    });
+function BarChart({ rate, topic,areaLabels }) {
 
   const data = {
     labels: areaLabels,
     datasets: [
       {
         label: "No. of daily smokers",
-        data: smokerRate,
+        data: rate,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -42,21 +33,17 @@ function BarChart({rawData,topic}) {
   const options = {
     plugins: {
       title: {
-        display:true,
-        text:topic
-      }
-    }
-  }
+        display: true,
+        text: topic,
+      },
+    },
+  };
 
   return (
     <div>
-      <Bar
-        data={data}
-        options={options}
-      />
+      <Bar data={data} options={options}></Bar>
     </div>
   );
-};
+}
 
 export default BarChart;
-
