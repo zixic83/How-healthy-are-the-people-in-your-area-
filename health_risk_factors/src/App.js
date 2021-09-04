@@ -21,9 +21,10 @@ function App() {
     })
   })
 
-  const areaLabels = alcoholData.map((item) => {
+  let areaLabels = alcoholData.map((item) => {
     return item.phn_name;
   });
+
 
 const propNames = [
   "abstainers_ex_drinkers",
@@ -33,23 +34,16 @@ const propNames = [
 
   // split different keys to different datasets
   let rates = [];
-  for (const elem of propNames) {
+  for (const key of propNames) {
     const result = alcoholData.map((item) => {
-      return item[elem];
+      return item[key];
     });
-    rates.push([elem,result ]);
+    rates.push([key,result]);
   }
-  console.log(rates)
 
   return (
     <div className="App">
-      Hello World
-      {rates.map((rate) => {
-        return (
-          <BarChart rate={rate[1]} topic={rate[0]} areaLabels={areaLabels}>
-
-          </BarChart>
-      )})}
+      <Question statement={'alcohol consumption'}></Question>
     </div>
   );
 }

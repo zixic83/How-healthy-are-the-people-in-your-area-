@@ -1,30 +1,49 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 // https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/VerticalBar.js
-function BarChart({ rate, topic,areaLabels }) {
+// https://stackoverflow.com/questions/64828498/sort-an-array-in-descending-order-for-a-chart-js-bar-chart-in-typescript
+function BarChart({ rate, topic, areaLabels,index }) {
+
+  // sort data
+  let allData = []
+  for (let i = 0; i < areaLabels.length; i++) {
+    allData.push({
+      label: areaLabels[i],
+      data: rate[i],
+    });
+  }
+  
+  allData.sort((a, b) => a.data - b.data);
+
+  const sortedLabels = allData.map((item) => {
+    return item.label
+  })
+
+  const sortedRates = allData.map((item) => {
+    return item.data
+  })
+
+
+  let color = null;
+  if (index == 0) {
+    color = "rgba(0, 158, 115, 0.6)";
+  }
+  if (index == 1) {
+    color = "rgba(240, 228, 66, 0.6)";
+  }
+  if (index == 2) {
+    color = "rgba(213, 94, 0, 0.6)";
+  }
+
 
   const data = {
-    labels: areaLabels,
+    labels: sortedLabels,
     datasets: [
       {
         label: "No. of daily smokers",
-        data: rate,
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
+        data: sortedRates,
+        backgroundColor: [color],
+        borderColor: ["rgba(228, 233, 237, 1)"],
         borderWidth: 1,
       },
     ],
