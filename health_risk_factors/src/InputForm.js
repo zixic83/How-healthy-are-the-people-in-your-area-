@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Select, MenuItem, FormControl,Button } from "@material-ui/core";
 import daily_smoker_data from "./data/daily_smoker.json";
+import { InputContext } from "./InputContext";
 //https://stackoverflow.com/questions/56120213/set-material-ui-select-width
 
 export default function InputForm() {
@@ -8,20 +9,21 @@ export default function InputForm() {
     return item.properties.phn_name;
   });
     
-    const [userInput, setUserInput] = useState('');
+  const [area, setArea] = useState('');
+  
+  // pass user input to App
+  const {getArea} = useContext(InputContext);
+  
+
     const handleSubmit = (e) => {
-        
+      getArea(area)  
         
     }
 
     const handleSelect = (e) => {
-        setUserInput(e.target.value)
+        setArea(e.target.value)
         
     };
-
-    useEffect(() => {
-        console.log(userInput);
-    })
 
 
   return (
@@ -46,6 +48,7 @@ export default function InputForm() {
           Submit
         </Button>
       </FormControl>
+      {}
     </div>
   );
 }

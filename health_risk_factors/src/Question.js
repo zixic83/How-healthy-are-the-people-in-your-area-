@@ -3,83 +3,82 @@ import { ButtonGroup, Button } from "@material-ui/core";
 import BarChart from "./BarChart";
 import Grid from "@material-ui/core/Grid";
 import data from "../src/data/alcohol_drug_phn.json";
+import { InputContext } from "./InputContext";
 
-export default function Question({ statement }) {
-  // process data
-  const processedData = data.features.map((item) => {
-    return item.properties;
-  });
+// https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
+// https://www.youtube.com/watch?v=sP7ANcTpJr8
 
-  const alcoholData = processedData.map((item) => {
-    return {
-      // change attribute name here
-      phn_code15: item.phn_code15,
-      phn_name: item.phn_name,
-      abstainers_ex_drinkers: item.alcohol_risk_abstainers_ex_drinkers,
-      lifetime_risk_lowrisk: item.alcohol_risk_lifetime_risk_lorisk,
-      lifetime_risk_risky: item.alcohol_risk_lifetime_risk_risky,
-    };
-  });
-
-  let areaLabels = alcoholData.map((item) => {
-    return item.phn_name;
-  });
-
-  const propNames = [
-    "abstainers_ex_drinkers",
-    "lifetime_risk_lowrisk",
-    "lifetime_risk_risky",
-  ];
+export default function Question({ statement,area,options,data }) {
+  
 
   // split different keys to different datasets
   let rates = [];
-  for (const key of propNames) {
-    const result = alcoholData.map((item) => {
+  for (const key of data.propNames) {
+    const result = data.stats.map((item) => {
       return item[key];
     });
     rates.push([key, result]);
   }
 
-  // create buttons for switching between graphs
-  const [input, setInput] = useState("");
+  // state values for storing user responses
+  const [answer, setAnswer]= useState("");
+  const [graph, setGraph] = useState("");
+
+
+  
 
   // aggregate charts
   let charts = []
   for (let i = 0; i < rates.length; i++) {
-    charts.push(<BarChart rate={rates[i][1]} areaLabels={areaLabels} index={i} topic={rates[i][0]}></BarChart>) 
+    charts.push(<BarChart rate={rates[i][1]} areaLabels={data.areaLabels} index={i} topic={rates[i][0]}></BarChart>) 
   }
   
   // function for conditional rendering
   const pickChart = () => {
     for (let i = 0; i < rates.length; i++) {
-      if (rates[i][0] === input) {
+      if (rates[i][0] === graph) {
         return (
           <BarChart
-            rate={rates[i][1]} areaLabels={areaLabels} index={i} topic={rates[i][0]}
+            rate={rates[i][1]} areaLabels={data.areaLabels} index={i} topic={rates[i][0]} area={area}
           ></BarChart>
         );
       }
     }
   }
 
+  // function for handling user's answer
+  const handleAnswer = (e) => {
+    // get options[i] 0,1,2
+    //setAnswer(e.currentTarget.value)
+    setGraph(rates[e.currentTarget.value][0]);
+  }
+
+
   return (
     <div>
       <Grid container>
         <Grid item xs={4}>
+         {/*  Question for the users */}
           {statement}
           <ButtonGroup>
-            <Button type="submit">Yes</Button>
-            <Button type="submit">No</Button>
+            {options.map((option,index) => {
+              return (
+                <Button type="submit" value={index} onClick={handleAnswer}>
+                  {option}
+                </Button>
+              );
+            })}
           </ButtonGroup>
         </Grid>
         <Grid item xs={8}>
+          {/* create buttons for switching between graphs */}
           <ButtonGroup>
             {rates.map((rate) => {
               return (
                 <Button
                   value={rate[0]}
                   onClick={(e) => {
-                    setInput(e.currentTarget.value);
+                    setGraph(e.currentTarget.value);
                   }}
                 >
                   {rate[0]}
