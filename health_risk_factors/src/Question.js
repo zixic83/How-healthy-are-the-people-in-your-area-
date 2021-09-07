@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonGroup, Button } from "@material-ui/core";
+import { ButtonGroup, Button, RadioGroup, makeStyles } from "@material-ui/core";
 import BarChart from "./BarChart";
 import Grid from "@material-ui/core/Grid";
 import data from "../src/data/alcohol_drug_phn.json";
@@ -7,9 +7,16 @@ import { InputContext } from "./InputContext";
 
 // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 // https://www.youtube.com/watch?v=sP7ANcTpJr8
+// https://stackoverflow.com/questions/25158435/paper-button-always-as-upper-case
+
+  const useStyles = makeStyles({
+    button: {
+      textTransform:'none'
+    }
+  })
 
 export default function Question({ statement,area,options,data }) {
-  
+  const classes = useStyles();
 
   // split different keys to different datasets
   let rates = [];
@@ -20,12 +27,10 @@ export default function Question({ statement,area,options,data }) {
     rates.push([key, result]);
   }
 
+
   // state values for storing user responses
-  const [answer, setAnswer]= useState("");
   const [graph, setGraph] = useState("");
-
-
-  
+  const [buttonStatus, setButtonStatus] = useState([false,false,false]);
 
   // aggregate charts
   let charts = []
@@ -51,6 +56,18 @@ export default function Question({ statement,area,options,data }) {
     // get options[i] 0,1,2
     //setAnswer(e.currentTarget.value)
     setGraph(rates[e.currentTarget.value][0]);
+    let updatedButtons = []
+    for (let i = 0; i < buttonStatus.length; i++) {
+      if (i === e.currentTarget.value) {
+        updatedButtons[i] = true;
+      } else {
+        updatedButtons[i] = false;
+      }
+    }
+
+    console.log(updatedButtons)
+
+    setButtonStatus(updatedButtons);
   }
 
 
@@ -58,17 +75,17 @@ export default function Question({ statement,area,options,data }) {
     <div>
       <Grid container>
         <Grid item xs={4}>
-         {/*  Question for the users */}
+          {/*  Question for the users */}
           {statement}
-          <ButtonGroup>
-            {options.map((option,index) => {
+          <RadioGroup>
+            {options.map((option, index) => {
               return (
-                <Button type="submit" value={index} onClick={handleAnswer}>
+                <Button type="submit" value={index} onClick={handleAnswer} className={classes.button} color={buttonStatus[index]?'primary':'secondary'}>
                   {option}
                 </Button>
               );
             })}
-          </ButtonGroup>
+          </RadioGroup>
         </Grid>
         <Grid item xs={8}>
           {/* create buttons for switching between graphs */}

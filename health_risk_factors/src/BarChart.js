@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { Bar } from "react-chartjs-2";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { Chart } from "chart.js";
@@ -7,7 +7,8 @@ Chart.register(annotationPlugin);
 // https://stackoverflow.com/questions/64828498/sort-an-array-in-descending-order-for-a-chart-js-bar-chart-in-typescript
 // https://stackoverflow.com/questions/65605029/how-to-highlight-bar-in-chartjs-with-onkeyup-input
 // https://stackoverflow.com/questions/36066508/how-to-include-external-javascript-library-in-reactjs
-function BarChart({ rate, topic, areaLabels,index,area }) {
+function BarChart({ rate, topic, areaLabels, index, area }) {
+
   // sort data
   let allData = [];
   for (let i = 0; i < areaLabels.length; i++) {
@@ -15,17 +16,19 @@ function BarChart({ rate, topic, areaLabels,index,area }) {
       label: areaLabels[i],
       data: rate[i],
     });
-  }
+  } 
 
   allData.sort((a, b) => a.data - b.data);
 
-  const sortedLabels = allData.map((item) => {
+let sortedLabels = allData.map((item) => {
     return item.label;
   });
 
-  const sortedRates = allData.map((item) => {
+let sortedRates = allData.map((item) => {
     return item.data;
   });
+  
+  
 
   // switch charts based on button selected
   let color = null;
@@ -53,23 +56,20 @@ function BarChart({ rate, topic, areaLabels,index,area }) {
   // change the bar color for the identified bar
   for (let i = 0; i < barColors.length; i++) {
     if (areaBar === i) {
-      console.log('reached')
       barColors[i] = "#FF7675"
     }
   }
 
   // find median of rates
-  let median = require('median')
-  let medianBar = median(rate);
-  
-  
+/* let median = require('median')
+let medianBar = median(rate); */
 
   // construct chart
-  const data = {
+  const data1 = {
     labels: sortedLabels,
     datasets: [
       {
-        label: "No. of daily smokers",
+        label: topic,
         data: sortedRates,
         backgroundColor: barColors,
         borderColor: ["rgba(228, 233, 237, 1)"],
@@ -78,35 +78,7 @@ function BarChart({ rate, topic, areaLabels,index,area }) {
     ],
   };
 
-  const options = {
-    plugins: {
-      title: {
-        display: true,
-        text: topic,
-      },
-    },
-    annotation: {
-      annotations: [
-        {
-          type: "line",
-          mode: "horizontal",
-          scaleID: "y",
-          value: medianBar,
-          borderColor: "#808080",
-          borderWidth: 5,
-          label: {
-            backgroundColor: "#343d52",
-            content: "median",
-            enabled:true
-          }
-        },
-      ],
-    },
-  };
-
-  
-
-const options1 = () => {
+const options = () => {
   return {
     plugins: {
       annotation: {
@@ -116,7 +88,7 @@ const options1 = () => {
             scaleID: "y",
             borderWidth: 2,
             borderColor: "#e6e6e6",
-            value: medianBar,
+            value: 10,
             label: {
               rotation: "auto",
               content: "Median",
@@ -133,7 +105,11 @@ const options1 = () => {
 
   return (
     <div>
-      <Bar data={data} options={options1()}></Bar>
+      <Bar
+        data={data1}
+        options={options()}
+        
+      ></Bar>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import InputForm from "./InputForm";
 import Question from "./Question";
-import BarChart from "./BarChart";
+import Forcast from "./Forcast";
 import { InputContext } from "./InputContext";
 import React, { useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
@@ -8,17 +8,23 @@ import rawData from "../src/data/alcohol_drug_phn.json";
 
 function App() {
   const [area, setArea] = useState("");
-  const [alcohol, setAlcohol] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
+
   // passing data between sibling components
   // function for getting area input
   const getArea = (area) => setArea(area);
-  // function for getting user response (alcohol)
-  const getAlcohol = (alcohol) => setAlcohol(alcohol);
+  const getIsSelected = (isSelected) => setIsSelected(isSelected);
 
   // process raw datasets
+  
   // process data - alcohol
   const processedData = rawData.features.map((item) => {
     return item.properties;
+  });
+
+  // area labels (common)
+  let areaLabels = processedData.map((item) => {
+    return item.phn_name;
   });
 
   const alcoholData = processedData.map((item) => {
@@ -40,7 +46,7 @@ function App() {
 
   const alcoholGraphData = {
     stats: alcoholData,
-    areaLabels,
+    areaLabels:areaLabels,
     propNames: alcoholPropNames,
   };
 
@@ -50,16 +56,29 @@ function App() {
       // change attribute name here
       phn_code15: item.phn_code15,
       phn_name: item.phn_name,
-      abstainers_ex_drinkers: item.alcohol_risk_abstainers_ex_drinkers,
-      lifetime_risk_lowrisk: item.alcohol_risk_lifetime_risk_lorisk,
-      lifetime_risk_risky: item.alcohol_risk_lifetime_risk_risky,
+      never_smoked: item.smk_status_never_smoked,
+      ex_smoker: item.smk_status_ex_smoker,
+      smoke_daily: item.smk_status_daily,
     };
   });
 
-  // area labels (common)
-  let areaLabels = rawData.map((item) => {
-    return item.phn_name;
-  });
+  const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
+
+  const smokeGraphData = {
+    stats: smokeData,
+    areaLabels: areaLabels,
+    propNames: smokePropNames,
+  };
+
+  // drug data
+    const drugData = processedData.map((item) => {
+      return {
+        // change attribute name here
+        phn_code15: item.phn_code15,
+        phn_name: item.phn_name,
+        drug_data: item.recent_illicit,
+      };
+    });
 
   // options for the alcohol question
   const alcoholOptions = [
@@ -68,16 +87,35 @@ function App() {
     "More than 2 standard drinks per day on average",
   ];
 
+  const smokeOptions = [
+    "Never smoked 100 cigaratees or equivalent amount of tabacco",
+    "Smoked at least 100 cigaratees or equivalent amount of tabacco in the past but no longer does",
+    "Smoke weekly or less than weekly",
+  ];
+
+
+
   return (
     <div className="App">
-      <InputContext.Provider value={{ getArea }}>
+      <InputContext.Provider value={{ getArea,getIsSelected }}>
         <InputForm></InputForm>
-        <Question
+        {isSelected === true ? <>
+           <Question
           statement={"How often do you comsume alcohol?"}
           area={area}
           options={alcoholOptions}
           data={alcoholGraphData}
         ></Question>
+        <Question
+          statement={"Do you smoke?"}
+          area={area}
+          options={smokeOptions}
+          data={smokeGraphData}
+        ></Question>
+        <Forcast areaLabels={areaLabels} drugData={drugData} area={area}></Forcast>
+        </>:null}
+        
+       
       </InputContext.Provider>
     </div>
   );
