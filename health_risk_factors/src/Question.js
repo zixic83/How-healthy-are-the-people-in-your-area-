@@ -2,20 +2,19 @@ import React, { useEffect, useState } from "react";
 import { ButtonGroup, Button, RadioGroup, makeStyles } from "@material-ui/core";
 import BarChart from "./BarChart";
 import Grid from "@material-ui/core/Grid";
-import data from "../src/data/alcohol_drug_phn.json";
-import { InputContext } from "./InputContext";
 
 // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 // https://www.youtube.com/watch?v=sP7ANcTpJr8
 // https://stackoverflow.com/questions/25158435/paper-button-always-as-upper-case
+// https://stackoverflow.com/questions/63144968/how-to-change-button-color-onclick-material-ui-react
 
-  const useStyles = makeStyles({
-    button: {
-      textTransform:'none'
-    }
-  })
+const useStyles = makeStyles({
+  button: {
+    textTransform: "none",
+  },
+});
 
-export default function Question({ statement,area,options,data }) {
+export default function Question({ statement, area, options, data }) {
   const classes = useStyles();
 
   // split different keys to different datasets
@@ -27,49 +26,57 @@ export default function Question({ statement,area,options,data }) {
     rates.push([key, result]);
   }
 
-
   // state values for storing user responses
   const [graph, setGraph] = useState("");
-  const [buttonStatus, setButtonStatus] = useState([false,false,false]);
+  const [buttonStatus, setButtonStatus] = useState([false, false, false]);
 
   // aggregate charts
-  let charts = []
+  let charts = [];
   for (let i = 0; i < rates.length; i++) {
-    charts.push(<BarChart rate={rates[i][1]} areaLabels={data.areaLabels} index={i} topic={rates[i][0]}></BarChart>) 
+    charts.push(
+      <BarChart
+        rate={rates[i][1]}
+        areaLabels={data.areaLabels}
+        index={i}
+        topic={rates[i][0]}
+      ></BarChart>
+    );
   }
-  
+
   // function for conditional rendering
   const pickChart = () => {
     for (let i = 0; i < rates.length; i++) {
       if (rates[i][0] === graph) {
         return (
-          <BarChart
-            rate={rates[i][1]} areaLabels={data.areaLabels} index={i} topic={rates[i][0]} area={area}
-          ></BarChart>
+          <div data-aos="fade-up">
+            <BarChart
+              rate={rates[i][1]}
+              areaLabels={data.areaLabels}
+              index={i}
+              topic={rates[i][0]}
+              area={area}
+            ></BarChart>
+          </div>
         );
       }
     }
-  }
+  };
 
   // function for handling user's answer
   const handleAnswer = (e) => {
     // get options[i] 0,1,2
-    //setAnswer(e.currentTarget.value)
     setGraph(rates[e.currentTarget.value][0]);
-    let updatedButtons = []
+    let updatedButtons = [];
     for (let i = 0; i < buttonStatus.length; i++) {
-      if (i === e.currentTarget.value) {
+      if (i === parseInt(e.currentTarget.value)) {
         updatedButtons[i] = true;
       } else {
         updatedButtons[i] = false;
       }
     }
 
-    console.log(updatedButtons)
-
     setButtonStatus(updatedButtons);
-  }
-
+  };
 
   return (
     <div>
@@ -80,7 +87,13 @@ export default function Question({ statement,area,options,data }) {
           <RadioGroup>
             {options.map((option, index) => {
               return (
-                <Button type="submit" value={index} onClick={handleAnswer} className={classes.button} color={buttonStatus[index]?'primary':'secondary'}>
+                <Button
+                  type="submit"
+                  value={index}
+                  onClick={handleAnswer}
+                  className={classes.button}
+                  color={buttonStatus[index] ? "secondary" : "default"}
+                >
                   {option}
                 </Button>
               );

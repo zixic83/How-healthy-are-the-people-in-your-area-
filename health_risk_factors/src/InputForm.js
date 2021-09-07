@@ -6,10 +6,11 @@ import Grid from "@material-ui/core/Grid";
 //https://stackoverflow.com/questions/56120213/set-material-ui-select-width
 
 export default function InputForm() {
-  const areaLabels = daily_smoker_data.features.map((item) => {
+  let areaLabels = daily_smoker_data.features.map((item) => {
     return item.properties.phn_name;
   });
-    
+  
+  areaLabels.sort();
   const [area, setArea] = useState('');
   
   // pass user input to App

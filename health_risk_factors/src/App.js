@@ -2,11 +2,16 @@ import InputForm from "./InputForm";
 import Question from "./Question";
 import Forcast from "./Forcast";
 import { InputContext } from "./InputContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
+import AOS from "aos";
 // https://colorswall.com/palette/24606/
 
 function App() {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
+
   const [area, setArea] = useState("");
   const [isSelected, setIsSelected] = useState(false);
 
@@ -16,7 +21,7 @@ function App() {
   const getIsSelected = (isSelected) => setIsSelected(isSelected);
 
   // process raw datasets
-  
+
   // process data - alcohol
   const processedData = rawData.features.map((item) => {
     return item.properties;
@@ -46,7 +51,7 @@ function App() {
 
   const alcoholGraphData = {
     stats: alcoholData,
-    areaLabels:areaLabels,
+    areaLabels: areaLabels,
     propNames: alcoholPropNames,
   };
 
@@ -71,14 +76,14 @@ function App() {
   };
 
   // drug data
-    const drugData = processedData.map((item) => {
-      return {
-        // change attribute name here
-        phn_code15: item.phn_code15,
-        phn_name: item.phn_name,
-        drug_data: item.recent_illicit,
-      };
-    });
+  const drugData = processedData.map((item) => {
+    return {
+      // change attribute name here
+      phn_code15: item.phn_code15,
+      phn_name: item.phn_name,
+      drug_data: item.recent_illicit,
+    };
+  });
 
   // options for the alcohol question
   const alcoholOptions = [
@@ -93,29 +98,37 @@ function App() {
     "Smoke weekly or less than weekly",
   ];
 
-
-
   return (
     <div className="App">
-      <InputContext.Provider value={{ getArea,getIsSelected }}>
+      <InputContext.Provider value={{ getArea, getIsSelected }}>
         <InputForm></InputForm>
-        {isSelected === true ? <>
-           <Question
-          statement={"How often do you comsume alcohol?"}
-          area={area}
-          options={alcoholOptions}
-          data={alcoholGraphData}
-        ></Question>
-        <Question
-          statement={"Do you smoke?"}
-          area={area}
-          options={smokeOptions}
-          data={smokeGraphData}
-        ></Question>
-        <Forcast areaLabels={areaLabels} drugData={drugData} area={area}></Forcast>
-        </>:null}
-        
-       
+        {isSelected === true ? (
+          <>
+            <div data-aos="fade-up">
+              <Question
+                statement={"How often do you comsume alcohol?"}
+                area={area}
+                options={alcoholOptions}
+                data={alcoholGraphData}
+              ></Question>
+            </div>
+            <div data-aos="fade-up">
+              <Question
+                statement={"Do you smoke?"}
+                area={area}
+                options={smokeOptions}
+                data={smokeGraphData}
+              ></Question>
+            </div>
+            <div data-aos="fade-up">
+              <Forcast
+                areaLabels={areaLabels}
+                drugData={drugData}
+                area={area}
+              ></Forcast>
+            </div>
+          </>
+        ) : null}
       </InputContext.Provider>
     </div>
   );
