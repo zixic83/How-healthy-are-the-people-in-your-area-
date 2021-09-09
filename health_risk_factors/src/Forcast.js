@@ -4,7 +4,7 @@ import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
 import { Typography } from "@material-ui/core";
 
-export default function Forcast({areaLabels,drugData,area}) {
+export default function Forcast({ areaLabels, drugData, area }) {
   const [guess, setGuess] = useState(0);
 
   const rate = drugData.map((item) => {
@@ -44,7 +44,7 @@ export default function Forcast({areaLabels,drugData,area}) {
   // change the bar color for the identified bar
   for (let i = 0; i < barColors.length; i++) {
     if (areaBar === i) {
-      barColors[i] = "#FF7675";
+      barColors[i] = "#FFA500";
     }
   }
 
@@ -62,32 +62,44 @@ export default function Forcast({areaLabels,drugData,area}) {
     ],
   };
 
-const options = {
-  plugins: {
-    autocolors: false,
-    annotation: {
-      annotations: {
-        point1: {
-          type: "point",
-          xValue: areaBar,
-          yValue: guess,
-          backgroundColor: "white",
-          radius: 5,
+  const options = {
+        scales: {
+      yAxes: 
+        {
+          title: {
+            display: true,
+            text: 'Population proportion'
         },
       },
     },
-  },
-};
+
+    plugins: {
+      autocolors: false,
+      annotation: {
+        annotations: {
+          point1: {
+            type: "point",
+            xValue: areaBar,
+            yValue: guess,
+            backgroundColor: "white",
+            radius: 5,
+          },
+        },
+      },
+
+    },
+    
+  };
 
   return (
     <div>
-      <Grid container>
-        <h4>
+      <Typography>
           What proportion of people do you think have used illicit drugs in
           2016?
-        </h4>
-        <Grid item xs={4}>
-          <Typography>Your Prediction:</Typography>
+        </Typography>
+      <Grid container spacing={5}>       
+        <Grid item xs={4} >
+          <Typography >Your Prediction:</Typography >
           <Slider
             value={guess}
             onChange={(e, newValue) => setGuess(newValue)}
@@ -97,9 +109,8 @@ const options = {
             Your Prediction
           </Slider>
         </Grid>
-              <Grid item xs={8}>
-            {guess === 0? null: <Bar data={data} options={options}></Bar>}
-         
+        <Grid item xs={8}>
+          {guess === 0 ? null : <Bar data={data} options={options}></Bar>}
         </Grid>
       </Grid>
     </div>

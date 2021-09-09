@@ -18,7 +18,9 @@ function App() {
   // passing data between sibling components
   // function for getting area input
   const getArea = (area) => setArea(area);
-  const getIsSelected = (isSelected) => setIsSelected(isSelected);
+  const getIsSelected = (isSelected) => {
+    setIsSelected(isSelected);
+  }
 
   // process raw datasets
 
@@ -50,6 +52,7 @@ function App() {
   ];
 
   const alcoholGraphData = {
+    title:"The proportion of alcohol consuming population  by consumption levels in 2016",
     stats: alcoholData,
     areaLabels: areaLabels,
     propNames: alcoholPropNames,
@@ -70,6 +73,7 @@ function App() {
   const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
 
   const smokeGraphData = {
+    title:"The proportion of smoking population in 2016 by consumption levels",
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
@@ -102,7 +106,7 @@ function App() {
     <div className="App">
       <InputContext.Provider value={{ getArea, getIsSelected }}>
         <InputForm></InputForm>
-        {isSelected === true ? (
+    {    isSelected === true ? (
           <>
             <div data-aos="fade-up">
               <Question
@@ -120,7 +124,7 @@ function App() {
                 data={smokeGraphData}
               ></Question>
             </div>
-            <div data-aos="fade-up">
+            <div >
               <Forcast
                 areaLabels={areaLabels}
                 drugData={drugData}
@@ -129,6 +133,8 @@ function App() {
             </div>
           </>
         ) : null}
+
+        )
       </InputContext.Provider>
     </div>
   );

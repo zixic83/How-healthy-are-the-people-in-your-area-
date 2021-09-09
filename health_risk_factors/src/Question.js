@@ -55,6 +55,7 @@ export default function Question({ statement, area, options, data }) {
               index={i}
               topic={rates[i][0]}
               area={area}
+              title={data.title}
             ></BarChart>
           </div>
         );
@@ -101,21 +102,6 @@ export default function Question({ statement, area, options, data }) {
           </RadioGroup>
         </Grid>
         <Grid item xs={8}>
-          {/* create buttons for switching between graphs */}
-          <ButtonGroup>
-            {rates.map((rate) => {
-              return (
-                <Button
-                  value={rate[0]}
-                  onClick={(e) => {
-                    setGraph(e.currentTarget.value);
-                  }}
-                >
-                  {rate[0]}
-                </Button>
-              );
-            })}
-          </ButtonGroup>
           {pickChart()}
         </Grid>
       </Grid>

@@ -1,27 +1,41 @@
 import React, { useEffect, useState,useContext } from "react";
-import { Select, MenuItem, FormControl,Button } from "@material-ui/core";
-import daily_smoker_data from "./data/daily_smoker.json";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  Button,
+  InputLabel,
+} from "@material-ui/core";
+import rawData from "../src/data/alcohol_drug_phn.json";
 import { InputContext } from "./InputContext";
 import Grid from "@material-ui/core/Grid";
 //https://stackoverflow.com/questions/56120213/set-material-ui-select-width
+// https://stackoverflow.com/questions/68740329/my-mui-select-component-doesnt-display-placeholder-or-label-props
 
 export default function InputForm() {
-  let areaLabels = daily_smoker_data.features.map((item) => {
+  // pass user input to App
+  const { getArea, getIsSelected } = useContext(InputContext);
+  const [area, setArea] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
+
+
+  // sort area labels 
+  let areaLabels = rawData.features.map((item) => {
     return item.properties.phn_name;
   });
   
   areaLabels.sort();
-  const [area, setArea] = useState('');
-  
-  // pass user input to App
-  const { getArea,getIsSelected } = useContext(InputContext);
-  
-  
-  
 
     const handleSubmit = () => {
-      getArea(area)  
-      getIsSelected(true)
+      getArea(area)
+      if (area !== '') {
+        getIsSelected(true)
+        
+      } else {
+        //setIsDisabled(true)
+        alert('Please enter an value')
+      }
+      
     }
 
     const handleSelect = (e) => {
@@ -33,11 +47,11 @@ export default function InputForm() {
   return (
     <Grid container justifyContent='center'>
       <FormControl style={{ minWidth: 200 }}>
+        <InputLabel>Area</InputLabel>
         <Select
           autoWidth
           variant="outlined"
           onChange={handleSelect}
-          defaultValue=""
         >
           {areaLabels.map((label) => {
               return <MenuItem key={label}value={label}>{label}</MenuItem>;
@@ -48,6 +62,7 @@ export default function InputForm() {
           color="primary"
           variant="outlined"
           onClick={handleSubmit}
+          disabled={isDisabled}
         >
           Submit
         </Button>
