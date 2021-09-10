@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ButtonGroup, Button, RadioGroup, makeStyles } from "@material-ui/core";
 import BarChart from "./BarChart";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
 // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 // https://www.youtube.com/watch?v=sP7ANcTpJr8
@@ -48,7 +49,7 @@ export default function Question({ statement, area, options, data }) {
     for (let i = 0; i < rates.length; i++) {
       if (rates[i][0] === graph) {
         return (
-          <div data-aos="fade-up">
+          <div>
             <BarChart
               rate={rates[i][1]}
               areaLabels={data.areaLabels}
@@ -80,7 +81,7 @@ export default function Question({ statement, area, options, data }) {
   };
 
   return (
-    <div>
+    <Box m={5}>
       <Grid container>
         <Grid item xs={4}>
           {/*  Question for the users */}
@@ -105,6 +106,6 @@ export default function Question({ statement, area, options, data }) {
           {pickChart()}
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }

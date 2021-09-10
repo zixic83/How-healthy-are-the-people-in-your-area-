@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
-import { Typography } from "@material-ui/core";
+import { Typography,Box } from "@material-ui/core";
+// https://www.youtube.com/watch?v=b-lWuCAgyO8
 
 export default function Forcast({ areaLabels, drugData, area }) {
   const [guess, setGuess] = useState(0);
@@ -48,6 +49,18 @@ export default function Forcast({ areaLabels, drugData, area }) {
     }
   }
 
+  // marks for the slider
+  const marks = [
+    {
+      value: 0,
+      label: '0%'
+    },
+    {
+      value: 100,
+      label:'100%'
+    }
+  ]
+
   // construct chart
   const data = {
     labels: sortedLabels,
@@ -63,12 +76,11 @@ export default function Forcast({ areaLabels, drugData, area }) {
   };
 
   const options = {
-        scales: {
-      yAxes: 
-        {
-          title: {
-            display: true,
-            text: 'Population proportion'
+    scales: {
+      yAxes: {
+        title: {
+          display: true,
+          text: "Population proportion",
         },
       },
     },
@@ -86,25 +98,23 @@ export default function Forcast({ areaLabels, drugData, area }) {
           },
         },
       },
-
     },
-    
   };
 
   return (
-    <div>
+    <Box m={5}>
       <Typography>
-          What proportion of people do you think have used illicit drugs in
-          2016?
-        </Typography>
-      <Grid container spacing={5}>       
-        <Grid item xs={4} >
-          <Typography >Your Prediction:</Typography >
+        What proportion of people do you think have used illicit drugs in 2016?
+      </Typography>
+      <Grid container spacing={5}>
+        <Grid item xs={4}>
+          <Typography id="title">Your Prediction:</Typography>
           <Slider
             value={guess}
             onChange={(e, newValue) => setGuess(newValue)}
             aria-labelledby="continuous-slider"
             valueLabelDisplay="on"
+            marks={marks}
           >
             Your Prediction
           </Slider>
@@ -113,6 +123,6 @@ export default function Forcast({ areaLabels, drugData, area }) {
           {guess === 0 ? null : <Bar data={data} options={options}></Bar>}
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }

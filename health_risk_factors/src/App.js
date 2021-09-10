@@ -5,6 +5,7 @@ import { InputContext } from "./InputContext";
 import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
 import AOS from "aos";
+import { Grid, Typography } from "@material-ui/core";
 // https://colorswall.com/palette/24606/
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
   const getArea = (area) => setArea(area);
   const getIsSelected = (isSelected) => {
     setIsSelected(isSelected);
-  }
+  };
 
   // process raw datasets
 
@@ -52,7 +53,8 @@ function App() {
   ];
 
   const alcoholGraphData = {
-    title:"The proportion of alcohol consuming population  by consumption levels in 2016",
+    title:
+      "The proportion of alcohol consuming population  by consumption levels in 2016",
     stats: alcoholData,
     areaLabels: areaLabels,
     propNames: alcoholPropNames,
@@ -73,7 +75,7 @@ function App() {
   const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
 
   const smokeGraphData = {
-    title:"The proportion of smoking population in 2016 by consumption levels",
+    title: "The proportion of smoking population in 2016 by consumption levels",
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
@@ -103,12 +105,15 @@ function App() {
   ];
 
   return (
-    <div className="App">
+    <div>
+      <Typography align="center" variant="h2">
+        How healthy are the people in your area?
+      </Typography>
       <InputContext.Provider value={{ getArea, getIsSelected }}>
         <InputForm></InputForm>
-    {    isSelected === true ? (
+        {isSelected === true ? (
           <>
-            <div data-aos="fade-up">
+            <div data-aos="fade-right">
               <Question
                 statement={"How often do you comsume alcohol?"}
                 area={area}
@@ -116,7 +121,14 @@ function App() {
                 data={alcoholGraphData}
               ></Question>
             </div>
-            <div data-aos="fade-up">
+            <div data-aos="fade-right">
+              <Forcast
+                areaLabels={areaLabels}
+                drugData={drugData}
+                area={area}
+              ></Forcast>
+            </div>
+            <div data-aos="fade-right">
               <Question
                 statement={"Do you smoke?"}
                 area={area}
@@ -124,17 +136,8 @@ function App() {
                 data={smokeGraphData}
               ></Question>
             </div>
-            <div >
-              <Forcast
-                areaLabels={areaLabels}
-                drugData={drugData}
-                area={area}
-              ></Forcast>
-            </div>
           </>
         ) : null}
-
-        )
       </InputContext.Provider>
     </div>
   );

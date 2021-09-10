@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { Bar } from "react-chartjs-2";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { Chart } from "chart.js";
+import AOS from "aos";
 Chart.register(annotationPlugin);
 // https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/VerticalBar.js
 // https://stackoverflow.com/questions/64828498/sort-an-array-in-descending-order-for-a-chart-js-bar-chart-in-typescript
@@ -10,6 +11,10 @@ Chart.register(annotationPlugin);
 // https://stackoverflow.com/questions/27910719/in-chart-js-set-chart-title-name-of-x-axis-and-y-axis
 // https://stackoverflow.com/questions/63109879/how-can-i-remove-the-grid-lines-in-chartjs
 function BarChart({ rate, topic, areaLabels, index, area,title }) {
+
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
 
   // sort data
   let allData = [];
@@ -111,11 +116,8 @@ const options = () => {
 };
 
   return (
-    <div>
-      <Bar
-        data={data}
-        options={options()}
-      ></Bar>
+    <div data-aos="zoom-in">
+      <Bar data={data} options={options()}></Bar>
     </div>
   );
 }
