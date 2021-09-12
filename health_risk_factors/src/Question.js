@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ButtonGroup, Button, RadioGroup, makeStyles } from "@material-ui/core";
+import {
+  ButtonGroup,
+  Button,
+  RadioGroup,
+  makeStyles,
+  Paper,
+} from "@material-ui/core";
 import BarChart from "./BarChart";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import median from "ml-array-median";
+import AOS from "aos";
 
 // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 // https://www.youtube.com/watch?v=sP7ANcTpJr8
@@ -17,6 +25,9 @@ const useStyles = makeStyles({
 
 export default function Question({ statement, area, options, data }) {
   const classes = useStyles();
+    useEffect(() => {
+      AOS.init({ duration: 2000 });
+    }, []);
 
   // split different keys to different datasets
   let rates = [];
@@ -47,9 +58,21 @@ export default function Question({ statement, area, options, data }) {
   // function for conditional rendering
   const pickChart = () => {
     for (let i = 0; i < rates.length; i++) {
+      let selectedRate = 0;
+
       if (rates[i][0] === graph) {
+        data.areaLabels.forEach((value, index) => {
+          if (value === area) {
+            selectedRate = rates[i][1][index];
+          }
+        });
+        const rateMedian = median(rates[i][1]);
+        const difference =
+          selectedRate > rateMedian
+            ? `${(selectedRate - rateMedian).toFixed(1)}% higher`
+            : `${(rateMedian - selectedRate).toFixed(1)}% lower`;
         return (
-          <div>
+          <div data-aos="zoom-in">
             <BarChart
               rate={rates[i][1]}
               areaLabels={data.areaLabels}
@@ -58,6 +81,12 @@ export default function Question({ statement, area, options, data }) {
               area={area}
               title={data.title}
             ></BarChart>
+            {/* caption for answer */}
+            <Box fontStyle="italic">
+              In {area}, <b>{selectedRate}%</b> of the people are {rates[i][0]},
+              which is <b>{difference}</b> than the median rate of {rateMedian}
+              %.
+            </Box>
           </div>
         );
       }
@@ -81,26 +110,28 @@ export default function Question({ statement, area, options, data }) {
   };
 
   return (
-    <Box m={5}>
+    <Box m={5} height={500} width={1450}>
       <Grid container>
         <Grid item xs={4}>
-          {/*  Question for the users */}
-          {statement}
-          <RadioGroup>
-            {options.map((option, index) => {
-              return (
-                <Button
-                  type="submit"
-                  value={index}
-                  onClick={handleAnswer}
-                  className={classes.button}
-                  color={buttonStatus[index] ? "secondary" : "default"}
-                >
-                  {option}
-                </Button>
-              );
-            })}
-          </RadioGroup>
+          <Box my={14}>
+            {/*  Question for the users */}
+            {statement}
+            <RadioGroup>
+              {options.map((option, index) => {
+                return (
+                  <Button
+                    type="submit"
+                    value={index}
+                    onClick={handleAnswer}
+                    className={classes.button}
+                    color={buttonStatus[index] ? "secondary" : "default"}
+                  >
+                    {option}
+                  </Button>
+                );
+              })}
+            </RadioGroup>
+          </Box>
         </Grid>
         <Grid item xs={8}>
           {pickChart()}

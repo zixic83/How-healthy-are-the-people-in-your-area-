@@ -75,7 +75,7 @@ function App() {
   const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
 
   const smokeGraphData = {
-    title: "The proportion of smoking population in 2016 by consumption levels",
+    title: "The proportion of smoking population by consumption levels in 2016",
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
@@ -106,7 +106,7 @@ function App() {
 
   return (
     <div>
-      <Typography align="center" variant="h2">
+      <Typography align="center" variant="h2" style={{ color: "#a9a9a9" }}>
         How healthy are the people in your area?
       </Typography>
       <InputContext.Provider value={{ getArea, getIsSelected }}>

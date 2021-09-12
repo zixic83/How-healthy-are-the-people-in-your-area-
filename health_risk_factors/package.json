@@ -11,7 +11,7 @@
     "chart.js": "^3.5.1",
     "chartjs-plugin-annotation": "^1.0.2",
     "chartjs-plugin-sort": "^0.1.1",
-    "median": "0.0.2",
+    "ml-array-median": "^1.1.5",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.4",
     "react-dom": "^17.0.2",

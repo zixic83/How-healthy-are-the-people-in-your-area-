@@ -46,7 +46,7 @@ export default function InputForm() {
 
   return (
     <Grid container justifyContent='center'>
-      <FormControl style={{ minWidth: 200 }}>
+      <FormControl style={{ minWidth: 500, margin: 20}}>
         <InputLabel>Area</InputLabel>
         <Select
           autoWidth
@@ -59,10 +59,11 @@ export default function InputForm() {
         </Select>
         <Button
           type="submit"
-          color="primary"
+          color="secondary"
           variant="outlined"
           onClick={handleSubmit}
           disabled={isDisabled}
+          style={{marginTop:10}}
         >
           Submit
         </Button>

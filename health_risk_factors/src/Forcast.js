@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
-import { Typography,Box } from "@material-ui/core";
+import { Typography,Box,Paper } from "@material-ui/core";
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
+// https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
 
 export default function Forcast({ areaLabels, drugData, area }) {
   const [guess, setGuess] = useState(0);
@@ -115,6 +116,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
             aria-labelledby="continuous-slider"
             valueLabelDisplay="on"
             marks={marks}
+            color='secondary'
           >
             Your Prediction
           </Slider>
