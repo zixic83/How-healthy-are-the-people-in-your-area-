@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
-import { Typography,Box,Paper } from "@material-ui/core";
+import { Typography, Box, Divider } from "@material-ui/core";
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
 // https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
 
@@ -54,13 +54,13 @@ export default function Forcast({ areaLabels, drugData, area }) {
   const marks = [
     {
       value: 0,
-      label: '0%'
+      label: "0%",
     },
     {
       value: 100,
-      label:'100%'
-    }
-  ]
+      label: "100%",
+    },
+  ];
 
   // construct chart
   const data = {
@@ -99,32 +99,43 @@ export default function Forcast({ areaLabels, drugData, area }) {
           },
         },
       },
+      title: {
+        display: true,
+        text: 'The proportion of illicit drug cosuming population in 2016',
+      },
     },
   };
 
   return (
-    <Box m={5}>
-      <Typography>
-        What proportion of people do you think have used illicit drugs in 2016?
-      </Typography>
-      <Grid container spacing={5}>
-        <Grid item xs={4}>
-          <Typography id="title">Your Prediction:</Typography>
-          <Slider
-            value={guess}
-            onChange={(e, newValue) => setGuess(newValue)}
-            aria-labelledby="continuous-slider"
-            valueLabelDisplay="on"
-            marks={marks}
-            color='secondary'
-          >
-            Your Prediction
-          </Slider>
-        </Grid>
-        <Grid item xs={8}>
-          {guess === 0 ? null : <Bar data={data} options={options}></Bar>}
-        </Grid>
-      </Grid>
-    </Box>
+    <Box m={5} height={500} width={1450}>
+  <Divider variant="middle" />
+  <Grid container>
+    <Grid item xs={4}>
+      <Box my={14} mr={5}>
+        {/*  Question for the users */}
+        <header style={{ fontFamily: "Book Antiqua" }}>
+              What proportion of people have used illicit drugs in 2016?
+              Your Prediction:
+            </header>
+        <Slider
+          value={guess}
+          onChange={(e, newValue) => setGuess(newValue)}
+          aria-labelledby="continuous-slider"
+          valueLabelDisplay="on"
+          marks={marks}
+          color="secondary"
+          style={{
+            marginTop: 35,
+            color: "#077a94",
+            fontFamily: "Book Antiqua",
+          }}
+        ></Slider>
+      </Box>
+    </Grid>
+    <Grid item xs={8}>
+      {guess === 0 ? null : <Bar data={data} options={options}></Bar>}
+    </Grid>
+  </Grid>
+</Box>
   );
 }

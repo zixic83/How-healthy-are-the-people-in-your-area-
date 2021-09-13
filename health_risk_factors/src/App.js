@@ -5,7 +5,8 @@ import { InputContext } from "./InputContext";
 import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
 import AOS from "aos";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography,Box } from "@material-ui/core";
+import background from "../src/data/bar.svg";
 // https://colorswall.com/palette/24606/
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
     stats: alcoholData,
     areaLabels: areaLabels,
     propNames: alcoholPropNames,
+    legendNames:['Abstainers/Ex-drinkers','<2 standard drinks','>2 standard drinks']
   };
 
   // process data - smoking
@@ -79,6 +81,7 @@ function App() {
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
+    legendNames:['Never smoked','ex-smoker','smoke daily']
   };
 
   // drug data
@@ -100,13 +103,18 @@ function App() {
 
   const smokeOptions = [
     "Never smoked 100 cigaratees or equivalent amount of tabacco",
-    "Smoked at least 100 cigaratees or equivalent amount of tabacco in the past but no longer does",
+    "Smoked at least 100 cigaratees or equivalent amount of tabacco in the past but no longer do",
     "Smoke weekly or less than weekly",
   ];
 
   return (
     <div>
-      <Typography align="center" variant="h2" style={{ color: "#a9a9a9" }}>
+
+      <Typography
+        align="center"
+        variant="h2"
+        style={{ color: "#000", fontFamily: "Book Antiqua" }}
+      >
         How healthy are the people in your area?
       </Typography>
       <InputContext.Provider value={{ getArea, getIsSelected }}>

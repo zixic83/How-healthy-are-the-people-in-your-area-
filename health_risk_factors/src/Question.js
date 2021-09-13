@@ -4,7 +4,7 @@ import {
   Button,
   RadioGroup,
   makeStyles,
-  Paper,
+  Divider,
 } from "@material-ui/core";
 import BarChart from "./BarChart";
 import Grid from "@material-ui/core/Grid";
@@ -37,6 +37,8 @@ export default function Question({ statement, area, options, data }) {
     });
     rates.push([key, result]);
   }
+
+  console.log(rates);
 
   // state values for storing user responses
   const [graph, setGraph] = useState("");
@@ -77,7 +79,7 @@ export default function Question({ statement, area, options, data }) {
               rate={rates[i][1]}
               areaLabels={data.areaLabels}
               index={i}
-              topic={rates[i][0]}
+              topic={data.legendNames[i]}
               area={area}
               title={data.title}
             ></BarChart>
@@ -110,12 +112,14 @@ export default function Question({ statement, area, options, data }) {
   };
 
   return (
-    <Box m={5} height={500} width={1450}>
+    <Box m={5} height={500} width={1450} >
+      <Divider variant="middle" />
       <Grid container>
         <Grid item xs={4}>
-          <Box my={14}>
+          <Box my={14} mr={5}>
             {/*  Question for the users */}
-            {statement}
+            <header style={{fontFamily:"Book Antiqua"}}>{statement}</header>
+            
             <RadioGroup>
               {options.map((option, index) => {
                 return (
@@ -124,7 +128,11 @@ export default function Question({ statement, area, options, data }) {
                     value={index}
                     onClick={handleAnswer}
                     className={classes.button}
-                    color={buttonStatus[index] ? "secondary" : "default"}
+                    style={{
+                      backgroundColor: buttonStatus[index] ? '#004759' : '#077a94',
+                      margin: 3,
+                      color: 'white',
+                    }}
                   >
                     {option}
                   </Button>
