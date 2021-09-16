@@ -5,9 +5,12 @@ import { InputContext } from "./InputContext";
 import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
 import AOS from "aos";
-import { Grid, Typography,Box } from "@material-ui/core";
-import background from "../src/data/bar.svg";
+import { Grid, Typography, Box } from "@material-ui/core";
+import smokeImg from "../src/data/smoke2.png";
+import drinkImg from "../src/data/drinks.png";
 // https://colorswall.com/palette/24606/
+// https://icon-icons.com/icon/drink-alcohol-liquor-liquors-beverage/61956
+// https://icon-icons.com/icon/cigars-cigarettes-smoke/89717
 
 function App() {
   useEffect(() => {
@@ -55,11 +58,21 @@ function App() {
 
   const alcoholGraphData = {
     title:
-      "The proportion of alcohol consuming population  by consumption levels in 2016",
+      "The proportion of alcohol use in population by consumption levels in 2016",
     stats: alcoholData,
     areaLabels: areaLabels,
     propNames: alcoholPropNames,
-    legendNames:['Abstainers/Ex-drinkers','<2 standard drinks','>2 standard drinks']
+    legendNames: [
+      "Abstainers / Ex-drinkers",
+      "<2 standard drinks",
+      ">2 standard drinks",
+    ],
+    caption: [
+      "are abstainers or ex-drinkers",
+      "have low lifetime risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
+      "have high lifetime risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
+    ],
+    img: drinkImg,
   };
 
   // process data - smoking
@@ -77,11 +90,13 @@ function App() {
   const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
 
   const smokeGraphData = {
-    title: "The proportion of smoking population by consumption levels in 2016",
+    title: "The proportion of tobacco smoking population by consumption levels in 2016",
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
-    legendNames:['Never smoked','ex-smoker','smoke daily']
+    legendNames: ["Never smoked", "Ex-smoker", "Smoke weekly or less"],
+    caption: ['have never smoked','are ex-smokers','smoke weekly or less'],
+    img: smokeImg,
   };
 
   // drug data
@@ -109,7 +124,6 @@ function App() {
 
   return (
     <div>
-
       <Typography
         align="center"
         variant="h2"
@@ -130,19 +144,19 @@ function App() {
               ></Question>
             </div>
             <div data-aos="fade-right">
-              <Forcast
-                areaLabels={areaLabels}
-                drugData={drugData}
-                area={area}
-              ></Forcast>
-            </div>
-            <div data-aos="fade-right">
               <Question
                 statement={"Do you smoke?"}
                 area={area}
                 options={smokeOptions}
                 data={smokeGraphData}
               ></Question>
+            </div>
+            <div data-aos="fade-right">
+              <Forcast
+                areaLabels={areaLabels}
+                drugData={drugData}
+                area={area}
+              ></Forcast>
             </div>
           </>
         ) : null}

@@ -11,6 +11,7 @@ Chart.register(annotationPlugin);
 // https://stackoverflow.com/questions/36066508/how-to-include-external-javascript-library-in-reactjs
 // https://stackoverflow.com/questions/27910719/in-chart-js-set-chart-title-name-of-x-axis-and-y-axis
 // https://stackoverflow.com/questions/63109879/how-can-i-remove-the-grid-lines-in-chartjs
+// https://stackoverflow.com/questions/46317867/how-to-append-text-or-symbol-to-tooltip-of-chart-js/46317913
 function BarChart({ rate, topic, areaLabels, index, area, title }) {
   // sort data
   let allData = [];
@@ -43,7 +44,7 @@ function BarChart({ rate, topic, areaLabels, index, area, title }) {
       color = "rgba(240, 228, 66, 1)";
       break;
     case 2:
-      color = "rgba(213, 94, 0, 1)";
+      color = "#c13434";
       break;
   }
 
@@ -86,12 +87,22 @@ function BarChart({ rate, topic, areaLabels, index, area, title }) {
           display: true,
           text: title,
         },
+        tooltip: {
+          yAlign: "bottom",
+          displayColors: false,
+          callbacks: {
+            label: function (tooltipItems, data) {
+              return tooltipItems.parsed.y + "%";
+            },
+          },
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
       },
       scales: {
         yAxes: {
           title: {
             display: true,
-            text: "Population proportion",
+            text: "Population proportion (%)",
           },
         },
         xAxes: {
@@ -100,7 +111,6 @@ function BarChart({ rate, topic, areaLabels, index, area, title }) {
           },
         },
       },
-      //indexAxis:'y'
     };
   };
 

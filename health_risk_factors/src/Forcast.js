@@ -3,8 +3,11 @@ import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
 import { Typography, Box, Divider } from "@material-ui/core";
+import median from "ml-array-median";
+import drugImg from '../src/data/drug.png'
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
 // https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
+// https://icon-icons.com/icon/medical-band-aids/73910
 
 export default function Forcast({ areaLabels, drugData, area }) {
   const [guess, setGuess] = useState(0);
@@ -38,11 +41,14 @@ export default function Forcast({ areaLabels, drugData, area }) {
   });
   // find the index of the bar corresponding to the area of choice in barColors
   let areaBar = null;
+  let selectedRate = null;
   for (let i = 0; i < sortedLabels.length; i++) {
     if (area === sortedLabels[i]) {
+      selectedRate = sortedRates[i];
       areaBar = i;
     }
   }
+
   // change the bar color for the identified bar
   for (let i = 0; i < barColors.length; i++) {
     if (areaBar === i) {
@@ -62,12 +68,23 @@ export default function Forcast({ areaLabels, drugData, area }) {
     },
   ];
 
+  // median rate and difference
+  const rateMedian = median(sortedRates);
+  const difference =
+    selectedRate > rateMedian
+      ? `${(selectedRate - rateMedian).toFixed(1)}% higher`
+      : `${(rateMedian - selectedRate).toFixed(1)}% lower`;
+
+  // compare prediction with actual stats
+  const comment =
+    Math.abs(selectedRate - guess) < 5 ? "Very close! I" : "Superisingly, i";
+
   // construct chart
   const data = {
     labels: sortedLabels,
     datasets: [
       {
-        label: "use of illicit drugs",
+        label: "Use of illicit drugs",
         data: sortedRates,
         backgroundColor: barColors,
         borderColor: ["rgba(228, 233, 237, 1)"],
@@ -81,7 +98,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
       yAxes: {
         title: {
           display: true,
-          text: "Population proportion",
+          text: "Population proportion (%)",
         },
       },
     },
@@ -101,41 +118,69 @@ export default function Forcast({ areaLabels, drugData, area }) {
       },
       title: {
         display: true,
-        text: 'The proportion of illicit drug cosuming population in 2016',
+        text: "The proportion of illicit use of drugs in population in 2016",
       },
-    },
+      tooltip: {
+          yAlign: "bottom",
+          displayColors: false,
+          callbacks: {
+            label: function (tooltipItems, data) {
+              return tooltipItems.parsed.y + "%";
+            },
+          },
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+      },
+    
   };
 
   return (
     <Box m={5} height={500} width={1450}>
-  <Divider variant="middle" />
-  <Grid container>
-    <Grid item xs={4}>
-      <Box my={14} mr={5}>
-        {/*  Question for the users */}
-        <header style={{ fontFamily: "Book Antiqua" }}>
+      <Divider variant="middle" />
+      <Grid container>
+        <Grid item xs={4}>
+          <Box my={14} mr={5}>
+            {/*  Question for the users */}
+            <img
+              src={drugImg}
+              alt="illustration"
+              height={130}
+              style={{ marginLeft: 6 }}
+            />
+            <header style={{ fontFamily: "Book Antiqua" }}>
               What proportion of people have used illicit drugs in 2016?
-              Your Prediction:
+              <p>Your Prediction (shown by the white dot on the graph) : </p>
             </header>
-        <Slider
-          value={guess}
-          onChange={(e, newValue) => setGuess(newValue)}
-          aria-labelledby="continuous-slider"
-          valueLabelDisplay="on"
-          marks={marks}
-          color="secondary"
-          style={{
-            marginTop: 35,
-            color: "#077a94",
-            fontFamily: "Book Antiqua",
-          }}
-        ></Slider>
-      </Box>
-    </Grid>
-    <Grid item xs={8}>
-      {guess === 0 ? null : <Bar data={data} options={options}></Bar>}
-    </Grid>
-  </Grid>
-</Box>
+            <Slider
+              value={guess}
+              onChange={(e, newValue) => setGuess(newValue)}
+              aria-labelledby="continuous-slider"
+              valueLabelDisplay="on"
+              marks={marks}
+              color="secondary"
+              style={{
+                marginTop: 35,
+                color: "#077a94",
+                fontFamily: "Book Antiqua",
+                marginLeft: 7,
+              }}
+            ></Slider>
+          </Box>
+        </Grid>
+        <Grid item xs={8}>
+          {guess === 0 ? null : (
+            <>
+              <Bar data={data} options={options} data-aos="zoom-in"></Bar>
+              <Box fontStyle="italic">
+                {comment}n <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
+                <b>{selectedRate}%</b> of the population used at least 1 of the 16 illicit drugs in
+                2016, which is <b>{difference}</b> than the median rate of{" "}
+                {rateMedian}%.
+              </Box>
+            </>
+          )}
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

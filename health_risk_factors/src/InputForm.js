@@ -1,11 +1,12 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useState,useContext } from "react";
 import {
   Select,
+  NativeSelect,
   MenuItem,
   FormControl,
   Button,
   InputLabel,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import rawData from "../src/data/alcohol_drug_phn.json";
 import { InputContext } from "./InputContext";
@@ -13,10 +14,21 @@ import Grid from "@material-ui/core/Grid";
 //https://stackoverflow.com/questions/56120213/set-material-ui-select-width
 // https://stackoverflow.com/questions/68740329/my-mui-select-component-doesnt-display-placeholder-or-label-props
 // https://colorswall.com/palette/24/
-
+// https://stackoverflow.com/questions/51387085/change-color-of-select-components-border-and-arrow-icon-material-ui
 const useStyles = makeStyles({
   button: {
     textTransform: "none",
+  },
+  select: {
+    "&:before": {
+      borderColor: "#077a94",
+    },
+    "&:after": {
+      borderColor: "#077a94",
+    },
+    "&:not(.Mui-disabled):hover::before": {
+      borderColor: "#077a94",
+    },
   },
 });
 
@@ -42,7 +54,7 @@ export default function InputForm() {
         
       } else {
         //setIsDisabled(true)
-        alert('Please enter an value')
+        alert('Please select an area')
       }
       
     }
@@ -55,9 +67,9 @@ export default function InputForm() {
 
   return (
     <Grid container justifyContent="center">
-      <FormControl style={{ minWidth: 500, margin: 20 }}>
-        <InputLabel>Area</InputLabel>
-        <Select autoWidth variant="outlined" onChange={handleSelect}>
+      <FormControl style={{ minWidth: 400, margin: 20 }}>
+        <InputLabel style={{ color: "#004759" }}>Area</InputLabel>
+        <Select className={classes.select} onChange={handleSelect}>
           {areaLabels.map((label) => {
             return (
               <MenuItem key={label} value={label}>
@@ -68,14 +80,12 @@ export default function InputForm() {
         </Select>
         <Button
           type="submit"
-          color="secondary"
           variant="outlined"
           onClick={handleSubmit}
           disabled={isDisabled}
           className={classes.button}
           style={{
             marginTop: 10,
-            backgroundColor: "#e0e0e0",
             color: "black",
             borderColor: "#9e9e9e",
           }}

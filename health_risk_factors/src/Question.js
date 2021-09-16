@@ -12,6 +12,7 @@ import Box from "@material-ui/core/Box";
 import median from "ml-array-median";
 import AOS from "aos";
 
+
 // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 // https://www.youtube.com/watch?v=sP7ANcTpJr8
 // https://stackoverflow.com/questions/25158435/paper-button-always-as-upper-case
@@ -85,9 +86,10 @@ export default function Question({ statement, area, options, data }) {
             ></BarChart>
             {/* caption for answer */}
             <Box fontStyle="italic">
-              In {area}, <b>{selectedRate}%</b> of the people are {rates[i][0]},
-              which is <b>{difference}</b> than the median rate of {rateMedian}
-              %.
+              In <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
+              <b>{selectedRate}%</b> of the population {" "}
+              {data.caption[i]}, which is <b>{difference}</b>{" "}
+              than the median rate of {rateMedian}%.
             </Box>
           </div>
         );
@@ -112,14 +114,15 @@ export default function Question({ statement, area, options, data }) {
   };
 
   return (
-    <Box m={5} height={500} width={1450} >
+    <Box m={5} height={500} width={1450}>
       <Divider variant="middle" />
       <Grid container>
         <Grid item xs={4}>
           <Box my={14} mr={5}>
+            <img src={data.img} alt="illustration" height={130}/>
             {/*  Question for the users */}
-            <header style={{fontFamily:"Book Antiqua"}}>{statement}</header>
-            
+            <header style={{ fontFamily: "Book Antiqua",marginBottom:7 }}>{statement}</header>
+
             <RadioGroup>
               {options.map((option, index) => {
                 return (
@@ -129,9 +132,11 @@ export default function Question({ statement, area, options, data }) {
                     onClick={handleAnswer}
                     className={classes.button}
                     style={{
-                      backgroundColor: buttonStatus[index] ? '#004759' : '#077a94',
+                      backgroundColor: buttonStatus[index]
+                        ? "#004759"
+                        : "#077a94",
                       margin: 3,
-                      color: 'white',
+                      color: "white",
                     }}
                   >
                     {option}
