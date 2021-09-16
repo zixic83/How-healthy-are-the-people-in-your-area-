@@ -5,12 +5,14 @@ import { InputContext } from "./InputContext";
 import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
 import AOS from "aos";
-import { Grid, Typography, Box } from "@material-ui/core";
+import {Typography, Tooltip } from "@material-ui/core";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import smokeImg from "../src/data/smoke2.png";
 import drinkImg from "../src/data/drinks.png";
 // https://colorswall.com/palette/24606/
 // https://icon-icons.com/icon/drink-alcohol-liquor-liquors-beverage/61956
 // https://icon-icons.com/icon/cigars-cigarettes-smoke/89717
+// https://foodwatch.com.au/blog/measures-and-conversions/item/what-s-a-standard-drink.html
 
 function App() {
   useEffect(() => {
@@ -73,6 +75,8 @@ function App() {
       "have high lifetime risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
     ],
     img: drinkImg,
+    footNote:
+      "*A standard drink contains 10 grams of alcohol, which is equivalent to a 100ml glass of wine.",
   };
 
   // process data - smoking
@@ -112,8 +116,8 @@ function App() {
   // options for the alcohol question
   const alcoholOptions = [
     "Have not consumed alcohol in the previous 12 months",
-    "No more than 2 standard drinks per day on average",
-    "More than 2 standard drinks per day on average",
+    "No more than 2 standard drinks* per day on average",
+    "More than 2 standard drinks* per day on average",
   ];
 
   const smokeOptions = [
@@ -122,6 +126,9 @@ function App() {
     "Smoke weekly or less than weekly",
   ];
 
+  const phnDesc =
+    "The areas are defined by the 31 Primary Health Networks (PHNs) in Australia.To know more, visit https://www.health.gov.au/initiatives-and-programs/phn";
+
   return (
     <div>
       <Typography
@@ -129,7 +136,11 @@ function App() {
         variant="h2"
         style={{ color: "#000", fontFamily: "Book Antiqua" }}
       >
+        
         How healthy are the people in your area?
+        <Tooltip title={phnDesc} style={{ marginBottom: 20, color: "#e6e6e6" }} placement='bottom-start'>
+          <InfoOutlinedIcon />
+        </Tooltip>
       </Typography>
       <InputContext.Provider value={{ getArea, getIsSelected }}>
         <InputForm></InputForm>

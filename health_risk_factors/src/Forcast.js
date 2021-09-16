@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
-import { Typography, Box, Divider } from "@material-ui/core";
+import { Box, Divider } from "@material-ui/core";
 import median from "ml-array-median";
-import drugImg from '../src/data/drug.png'
+import drugImg from "../src/data/drug.png";
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
 // https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
 // https://icon-icons.com/icon/medical-band-aids/73910
@@ -79,6 +79,9 @@ export default function Forcast({ areaLabels, drugData, area }) {
   const comment =
     Math.abs(selectedRate - guess) < 5 ? "Very close! I" : "Superisingly, i";
 
+  // footnote
+  const footnote = `*A clear list of illicit drugs cannot be found, but is likely to be the list in page 148 of the `;
+
   // construct chart
   const data = {
     labels: sortedLabels,
@@ -121,17 +124,16 @@ export default function Forcast({ areaLabels, drugData, area }) {
         text: "The proportion of illicit use of drugs in population in 2016",
       },
       tooltip: {
-          yAlign: "bottom",
-          displayColors: false,
-          callbacks: {
-            label: function (tooltipItems, data) {
-              return tooltipItems.parsed.y + "%";
-            },
+        yAlign: "bottom",
+        displayColors: false,
+        callbacks: {
+          label: function (tooltipItems, data) {
+            return tooltipItems.parsed.y + "%";
           },
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
       },
-    
+    },
   };
 
   return (
@@ -173,9 +175,17 @@ export default function Forcast({ areaLabels, drugData, area }) {
               <Bar data={data} options={options} data-aos="zoom-in"></Bar>
               <Box fontStyle="italic">
                 {comment}n <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
-                <b>{selectedRate}%</b> of the population used at least 1 of the 16 illicit drugs in
-                2016, which is <b>{difference}</b> than the median rate of{" "}
-                {rateMedian}%.
+                <b>{selectedRate}%</b> of the population used at least 1 of the
+                16 illicit drugs* in 2016, which is <b>{difference}</b> than the
+                median rate of {rateMedian}%.
+                <br />
+                <var style={{ marginTop: 5, fontSize: 12 }}>
+                  {footnote}{" "}
+                  <a href="https://www.aihw.gov.au/getmedia/15db8c15-7062-4cde-bfa4-3c2079f30af3/aihw-phe-214.pdf">
+                    survey report
+                  </a>
+                  .
+                </var>
               </Box>
             </>
           )}

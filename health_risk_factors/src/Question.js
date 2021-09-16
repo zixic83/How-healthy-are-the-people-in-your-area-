@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  ButtonGroup,
   Button,
   RadioGroup,
   makeStyles,
@@ -38,8 +37,6 @@ export default function Question({ statement, area, options, data }) {
     });
     rates.push([key, result]);
   }
-
-  console.log(rates);
 
   // state values for storing user responses
   const [graph, setGraph] = useState("");
@@ -127,6 +124,7 @@ export default function Question({ statement, area, options, data }) {
               {options.map((option, index) => {
                 return (
                   <Button
+                    key={index}
                     type="submit"
                     value={index}
                     onClick={handleAnswer}
@@ -144,6 +142,7 @@ export default function Question({ statement, area, options, data }) {
                 );
               })}
             </RadioGroup>
+            <var style={{marginTop:5,fontSize:12}}>{data.footNote ? data.footNote:null}</var>
           </Box>
         </Grid>
         <Grid item xs={8}>

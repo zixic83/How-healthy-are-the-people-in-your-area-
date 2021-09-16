@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Bar } from "react-chartjs-2";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { Chart } from "chart.js";
@@ -57,6 +57,7 @@ function BarChart({ rate, topic, areaLabels, index, area, title }) {
     if (area === value) {
       return index;
     }
+    return null
   });
 
   // change the bar color for the identified bar
