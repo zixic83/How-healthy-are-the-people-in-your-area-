@@ -4,7 +4,7 @@ import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
 import { Box, Divider } from "@material-ui/core";
 import median from "ml-array-median";
-import drugImg from "../src/data/drug.png";
+import drugImg from "../src/data/pills.png";
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
 // https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
 // https://icon-icons.com/icon/medical-band-aids/73910
@@ -162,7 +162,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
               color="secondary"
               style={{
                 marginTop: 35,
-                color: "#077a94",
+                color: "#4a4e69",
                 fontFamily: "Book Antiqua",
                 marginLeft: 7,
               }}
@@ -181,7 +181,10 @@ export default function Forcast({ areaLabels, drugData, area }) {
                 <br />
                 <var style={{ marginTop: 5, fontSize: 12 }}>
                   {footnote}{" "}
-                  <a href="https://www.aihw.gov.au/getmedia/15db8c15-7062-4cde-bfa4-3c2079f30af3/aihw-phe-214.pdf">
+                  <a
+                    style={{ color: "#9a8c98" }}
+                    href="https://www.aihw.gov.au/getmedia/15db8c15-7062-4cde-bfa4-3c2079f30af3/aihw-phe-214.pdf"
+                  >
                     survey report
                   </a>
                   .

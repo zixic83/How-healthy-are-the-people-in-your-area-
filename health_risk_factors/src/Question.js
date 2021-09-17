@@ -131,8 +131,8 @@ export default function Question({ statement, area, options, data }) {
                     className={classes.button}
                     style={{
                       backgroundColor: buttonStatus[index]
-                        ? "#004759"
-                        : "#077a94",
+                        ? "#22223b"
+                        : "#4a4e69",
                       margin: 3,
                       color: "white",
                     }}

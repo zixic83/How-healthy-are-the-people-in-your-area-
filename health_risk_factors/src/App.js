@@ -1,6 +1,7 @@
 import InputForm from "./InputForm";
 import Question from "./Question";
 import Forcast from "./Forcast";
+import Sources from "./Sources";
 import { InputContext } from "./InputContext";
 import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
@@ -76,7 +77,7 @@ function App() {
     ],
     img: drinkImg,
     footNote:
-      "*A standard drink contains 10 grams of alcohol, which is equivalent to a 100ml glass of wine.",
+      "*A standard drink contains 10 grams of pure alcohol, which is equivalent to a 100ml 13.5% red wine.",
   };
 
   // process data - smoking
@@ -134,11 +135,14 @@ function App() {
       <Typography
         align="center"
         variant="h2"
-        style={{ color: "#000", fontFamily: "Book Antiqua" }}
+        style={{ fontFamily: "Book Antiqua" }}
       >
-        
         How healthy are the people in your area?
-        <Tooltip title={phnDesc} style={{ marginBottom: 20, color: "#e6e6e6" }} placement='bottom-start'>
+        <Tooltip
+          title={phnDesc}
+          style={{ marginBottom: 20, color: "#e6e6e6" }}
+          placement="bottom-start"
+        >
           <InfoOutlinedIcon />
         </Tooltip>
       </Typography>
@@ -169,6 +173,7 @@ function App() {
                 area={area}
               ></Forcast>
             </div>
+            <Sources />
           </>
         ) : null}
       </InputContext.Provider>

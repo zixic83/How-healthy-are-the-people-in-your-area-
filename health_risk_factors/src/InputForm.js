@@ -24,13 +24,13 @@ const useStyles = makeStyles({
   },
   select: {
     "&:before": {
-      borderColor: "#077a94",
+      borderColor: "#9a8c98",
     },
     "&:after": {
-      borderColor: "#077a94",
+      borderColor: "#9a8c98",
     },
     "&:not(.Mui-disabled):hover::before": {
-      borderColor: "#077a94",
+      borderColor: "#9a8c98",
     },
   },
 });
@@ -60,7 +60,7 @@ export default function InputForm() {
   return (
     <Grid container justifyContent="center">
       <FormControl style={{ minWidth: 400, margin: 20 }}>
-        <InputLabel style={{ color: "#004759" }}>Area</InputLabel>
+        <InputLabel style={{ color: "#9a8c98" }}>Area</InputLabel>
         <Select className={classes.select} onChange={handleSelect} value={area}>
           {areaLabels.map((label) => {
             return (
