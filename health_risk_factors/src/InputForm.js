@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 export default function InputForm() {
   const classes = useStyles();
-  // pass user input to App
+  // pass user input to App.js
   const { getArea, getIsSelected } = useContext(InputContext);
   const [area, setArea] = useState("");
 
@@ -48,6 +48,7 @@ export default function InputForm() {
 
   areaLabels.sort();
 
+  // handle user input
   const handleSubmit = () => {
     getArea(area);
     getIsSelected(true);

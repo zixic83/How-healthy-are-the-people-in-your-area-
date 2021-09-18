@@ -4,13 +4,12 @@ import {
   RadioGroup,
   makeStyles,
   Divider,
+  Grid,
+  Box
 } from "@material-ui/core";
 import BarChart from "./BarChart";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import median from "ml-array-median";
 import AOS from "aos";
-
 
 // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 // https://www.youtube.com/watch?v=sP7ANcTpJr8
@@ -29,7 +28,7 @@ export default function Question({ statement, area, options, data }) {
       AOS.init({ duration: 2000 });
     }, []);
 
-  // split different keys to different datasets
+  // process data
   let rates = [];
   for (const key of data.propNames) {
     const result = data.stats.map((item) => {
@@ -55,22 +54,27 @@ export default function Question({ statement, area, options, data }) {
     );
   }
 
-  // function for conditional rendering
+  // function for conditionally rendering charts
   const pickChart = () => {
+    // return corresponding chart based on user choice
     for (let i = 0; i < rates.length; i++) {
       let selectedRate = 0;
 
+      // matching key in dataset with selected key
       if (rates[i][0] === graph) {
         data.areaLabels.forEach((value, index) => {
           if (value === area) {
             selectedRate = rates[i][1][index];
           }
         });
+
+        // median and difference
         const rateMedian = median(rates[i][1]);
         const difference =
           selectedRate > rateMedian
             ? `${(selectedRate - rateMedian).toFixed(1)}% higher`
             : `${(rateMedian - selectedRate).toFixed(1)}% lower`;
+        
         return (
           <div data-aos="zoom-in">
             <BarChart
@@ -81,6 +85,7 @@ export default function Question({ statement, area, options, data }) {
               area={area}
               title={data.title}
             ></BarChart>
+
             {/* caption for answer */}
             <Box fontStyle="italic">
               In <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
@@ -96,8 +101,10 @@ export default function Question({ statement, area, options, data }) {
 
   // function for handling user's answer
   const handleAnswer = (e) => {
-    // get options[i] 0,1,2
+    // update state value
     setGraph(rates[e.currentTarget.value][0]);
+
+    // update button based on user's selection
     let updatedButtons = [];
     for (let i = 0; i < buttonStatus.length; i++) {
       if (i === parseInt(e.currentTarget.value)) {
@@ -106,7 +113,6 @@ export default function Question({ statement, area, options, data }) {
         updatedButtons[i] = false;
       }
     }
-
     setButtonStatus(updatedButtons);
   };
 
@@ -118,8 +124,8 @@ export default function Question({ statement, area, options, data }) {
           <Box my={14} mr={5}>
             <img src={data.img} alt="illustration" height={130}/>
             {/*  Question for the users */}
-            <header style={{ fontFamily: "Book Antiqua",marginBottom:7 }}>{statement}</header>
-
+            <header style={{ fontFamily: "Book Antiqua", marginBottom: 7 }}>{statement}</header>
+            
             <RadioGroup>
               {options.map((option, index) => {
                 return (
@@ -142,6 +148,7 @@ export default function Question({ statement, area, options, data }) {
                 );
               })}
             </RadioGroup>
+            {/* additional footnote */}
             <var style={{marginTop:5,fontSize:12}}>{data.footNote ? data.footNote:null}</var>
           </Box>
         </Grid>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Slider from "@material-ui/core/Slider";
 import { Bar } from "react-chartjs-2";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider, Grid, Slider } from "@material-ui/core";
 import median from "ml-array-median";
 import drugImg from "../src/data/pills.png";
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
@@ -14,6 +12,7 @@ import drugImg from "../src/data/pills.png";
 export default function Forcast({ areaLabels, drugData, area }) {
   const [guess, setGuess] = useState(null);
 
+  // extract data
   const rate = drugData.map((item) => {
     return item.drug_data;
   });
@@ -41,6 +40,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
   let barColors = sortedLabels.map((label) => {
     return "#303F9F";
   });
+
   // find the index of the bar corresponding to the area of choice in barColors
   let areaBar = null;
   let selectedRate = null;
@@ -77,7 +77,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
       ? `${(selectedRate - rateMedian).toFixed(1)}% higher`
       : `${(rateMedian - selectedRate).toFixed(1)}% lower`;
 
-  // compare prediction with actual stats
+  // compare prediction to actual stats
   const comment =
     Math.abs(selectedRate - guess) < 5 ? "Very close! I" : "In fact, i";
 
@@ -147,17 +147,18 @@ export default function Forcast({ areaLabels, drugData, area }) {
       <Grid container>
         <Grid item xs={4}>
           <Box my={14} mr={5}>
-            {/*  Question for the users */}
             <img
               src={drugImg}
               alt="illustration"
               height={130}
               style={{ marginLeft: 7 }}
             />
+            {/*  Question for the users */}
             <header style={{ fontFamily: "Book Antiqua" }}>
               What proportion of people have used illicit drugs in your area in 2016?
               <p>Your Prediction (will be shown by a white dot on the graph) : </p>
             </header>
+
             <Slider
               value={guess}
               onChange={(e, newValue) => setGuess(newValue)}
@@ -178,10 +179,11 @@ export default function Forcast({ areaLabels, drugData, area }) {
           {guess === 0 ? null : (
             <>
               <Bar data={data} options={options} data-aos="zoom-in"></Bar>
+              {/* caption */}
               <Box fontStyle="italic">
                 {comment}n <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
                 <b>{selectedRate}%</b> of the population used at least 1 of the
-                16 illicit drugs* in 2016, which is <b>{difference}</b> than the nationwide
+                16 illicit drugs* recently* in 2016, which is <b>{difference}</b> than the nationwide
                 median rate of {rateMedian}%.
                 <br />
                 <var style={{ marginTop: 5, fontSize: 12 }}>
@@ -193,8 +195,11 @@ export default function Forcast({ areaLabels, drugData, area }) {
                     survey report
                   </a>
                   .
+                  <br />
+                  * 'recently' means in the last 12 months when the the survey was conducted.
                 </var>
               </Box>
+              
             </>
           )}
         </Grid>

@@ -3,8 +3,6 @@ import { Bar } from "react-chartjs-2";
 import annotationPlugin from "chartjs-plugin-annotation";
 import { Chart } from "chart.js";
 
-
-Chart.register(annotationPlugin);
 // https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/VerticalBar.js
 // https://stackoverflow.com/questions/64828498/sort-an-array-in-descending-order-for-a-chart-js-bar-chart-in-typescript
 // https://stackoverflow.com/questions/65605029/how-to-highlight-bar-in-chartjs-with-onkeyup-input
@@ -12,6 +10,7 @@ Chart.register(annotationPlugin);
 // https://stackoverflow.com/questions/27910719/in-chart-js-set-chart-title-name-of-x-axis-and-y-axis
 // https://stackoverflow.com/questions/63109879/how-can-i-remove-the-grid-lines-in-chartjs
 // https://stackoverflow.com/questions/46317867/how-to-append-text-or-symbol-to-tooltip-of-chart-js/46317913
+Chart.register(annotationPlugin);
 function BarChart({ rate, topic, areaLabels, index, area, title }) {
   // sort data
   let allData = [];
@@ -52,15 +51,14 @@ function BarChart({ rate, topic, areaLabels, index, area, title }) {
   let barColors = sortedLabels.map((label) => {
     return color;
   });
-  // find the index of the bar corresponding to the area of choice in barColors
 
+  // find the index of the bar corresponding to the area of choice in barColors
   let areaBar = null
   for (let i = 0; i < sortedLabels.length;i++){
     if (area === sortedLabels[i]) {
       areaBar = i
     }
   }
-  console.log(areaBar)
 
   // change the bar color for the identified bar
   barColors.forEach((value, index) => {

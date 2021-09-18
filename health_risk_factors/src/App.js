@@ -1,7 +1,6 @@
 import InputForm from "./InputForm";
 import Question from "./Question";
 import Forcast from "./Forcast";
-import Sources from "./Sources";
 import { InputContext } from "./InputContext";
 import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
@@ -16,6 +15,7 @@ import drinkImg from "../src/data/drinks.png";
 // https://foodwatch.com.au/blog/measures-and-conversions/item/what-s-a-standard-drink.html
 
 function App() {
+  // animate effect
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
@@ -24,7 +24,7 @@ function App() {
   const [isSelected, setIsSelected] = useState(false);
 
   // passing data between sibling components
-  // function for getting area input
+  // functions for getting area input/selected status
   const getArea = (area) => setArea(area);
   const getIsSelected = (isSelected) => {
     setIsSelected(isSelected);
@@ -37,7 +37,7 @@ function App() {
     return item.properties;
   });
 
-  // area labels (common)
+  // area labels (common for all sections)
   let areaLabels = processedData.map((item) => {
     return item.phn_name;
   });
@@ -107,7 +107,6 @@ function App() {
   // drug data
   const drugData = processedData.map((item) => {
     return {
-      // change attribute name here
       phn_code15: item.phn_code15,
       phn_name: item.phn_name,
       drug_data: item.recent_illicit,
@@ -132,12 +131,14 @@ function App() {
 
   return (
     <div>
+      {/*webpage heading */}
       <Typography
         align="center"
         variant="h2"
         style={{ fontFamily: "Book Antiqua" }}
       >
         How healthy are the people in your area?
+        {/* PHN explanation */}
         <Tooltip
           title={phnDesc}
           style={{ marginBottom: 20, color: "#e6e6e6" }}
@@ -146,8 +147,10 @@ function App() {
           <InfoOutlinedIcon />
         </Tooltip>
       </Typography>
+
       <InputContext.Provider value={{ getArea, getIsSelected }}>
         <InputForm></InputForm>
+        {/* Display components only after area selection */}
         {isSelected === true ? (
           <>
             <div data-aos="fade-right">
