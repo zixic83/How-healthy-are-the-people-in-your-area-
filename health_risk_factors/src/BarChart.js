@@ -53,16 +53,20 @@ function BarChart({ rate, topic, areaLabels, index, area, title }) {
     return color;
   });
   // find the index of the bar corresponding to the area of choice in barColors
-  let areaBar = sortedLabels.findIndex((value, index) => {
-    if (area === value) {
-      return index;
+
+  let areaBar = null
+  for (let i = 0; i < sortedLabels.length;i++){
+    if (area === sortedLabels[i]) {
+      areaBar = i
     }
-    return null
-  });
+  }
+  console.log(areaBar)
 
   // change the bar color for the identified bar
   barColors.forEach((value, index) => {
+    console.log('step 2',areaBar,index)
     if (areaBar === index) {
+      console.log('reach')
       barColors[index] = "#FFA500";
     }
   });

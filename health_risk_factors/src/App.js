@@ -61,7 +61,7 @@ function App() {
 
   const alcoholGraphData = {
     title:
-      "The proportion of alcohol use in population by consumption levels in 2016",
+      "The proportion of alcohol use in population by consumption levels in Australia in 2016",
     stats: alcoholData,
     areaLabels: areaLabels,
     propNames: alcoholPropNames,
@@ -72,8 +72,8 @@ function App() {
     ],
     caption: [
       "are abstainers or ex-drinkers",
-      "have low lifetime risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
-      "have high lifetime risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
+      "have low lifetime health risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
+      "have high lifetime health risk due to alcohol consumption (i.e. alcohol-related disease/injury)",
     ],
     img: drinkImg,
     footNote:
@@ -95,7 +95,7 @@ function App() {
   const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
 
   const smokeGraphData = {
-    title: "The proportion of tobacco smoking population by consumption levels in 2016",
+    title: "The proportion of tobacco smoking population by consumption levels in Australia in 2016",
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
@@ -122,7 +122,7 @@ function App() {
   ];
 
   const smokeOptions = [
-    "Never smoked 100 cigaratees or equivalent amount of tabacco",
+    "Never smoked at least 100 cigaratees or equivalent amount of tabacco",
     "Smoked at least 100 cigaratees or equivalent amount of tabacco in the past but no longer do",
     "Smoke weekly or less than weekly",
   ];
@@ -152,7 +152,7 @@ function App() {
           <>
             <div data-aos="fade-right">
               <Question
-                statement={"How often do you comsume alcohol?"}
+                statement={"How often do you consume alcohol?"}
                 area={area}
                 options={alcoholOptions}
                 data={alcoholGraphData}
@@ -173,7 +173,6 @@ function App() {
                 area={area}
               ></Forcast>
             </div>
-            <Sources />
           </>
         ) : null}
       </InputContext.Provider>

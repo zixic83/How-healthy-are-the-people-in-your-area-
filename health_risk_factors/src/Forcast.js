@@ -8,9 +8,11 @@ import drugImg from "../src/data/pills.png";
 // https://www.youtube.com/watch?v=b-lWuCAgyO8
 // https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
 // https://icon-icons.com/icon/medical-band-aids/73910
+// https://github.com/chartjs/chartjs-plugin-annotation/issues/434
+// https://stackoverflow.com/questions/36676263/chart-js-v2-hiding-grid-lines
 
 export default function Forcast({ areaLabels, drugData, area }) {
-  const [guess, setGuess] = useState(0);
+  const [guess, setGuess] = useState(null);
 
   const rate = drugData.map((item) => {
     return item.drug_data;
@@ -63,8 +65,8 @@ export default function Forcast({ areaLabels, drugData, area }) {
       label: "0%",
     },
     {
-      value: 100,
-      label: "100%",
+      value: 50,
+      label: "50%",
     },
   ];
 
@@ -77,7 +79,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
 
   // compare prediction with actual stats
   const comment =
-    Math.abs(selectedRate - guess) < 5 ? "Very close! I" : "Superisingly, i";
+    Math.abs(selectedRate - guess) < 5 ? "Very close! I" : "In fact, i";
 
   // footnote
   const footnote = `*A clear list of illicit drugs cannot be found, but is likely to be the list in page 148 of the `;
@@ -97,17 +99,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
   };
 
   const options = {
-    scales: {
-      yAxes: {
-        title: {
-          display: true,
-          text: "Population proportion (%)",
-        },
-      },
-    },
-
     plugins: {
-      autocolors: false,
       annotation: {
         annotations: {
           point1: {
@@ -121,7 +113,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
       },
       title: {
         display: true,
-        text: "The proportion of illicit use of drugs in population in 2016",
+        text: "The proportion of illicit use of drugs in population in Australia in 2016",
       },
       tooltip: {
         yAlign: "bottom",
@@ -134,10 +126,23 @@ export default function Forcast({ areaLabels, drugData, area }) {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
       },
     },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: "Population proportion (%)",
+        },
+      },
+      x: {
+        grid: {
+          color: "rgba(0, 0, 0, 0)",
+        },
+      },
+    },
   };
 
   return (
-    <Box m={5} height={500} width={1450}>
+    <Box m={5} height={500} width={1450} mb={10}>
       <Divider variant="middle" />
       <Grid container>
         <Grid item xs={4}>
@@ -147,11 +152,11 @@ export default function Forcast({ areaLabels, drugData, area }) {
               src={drugImg}
               alt="illustration"
               height={130}
-              style={{ marginLeft: 6 }}
+              style={{ marginLeft: 7 }}
             />
             <header style={{ fontFamily: "Book Antiqua" }}>
-              What proportion of people have used illicit drugs in 2016?
-              <p>Your Prediction (shown by the white dot on the graph) : </p>
+              What proportion of people have used illicit drugs in your area in 2016?
+              <p>Your Prediction (will be shown by a white dot on the graph) : </p>
             </header>
             <Slider
               value={guess}
@@ -159,7 +164,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
               aria-labelledby="continuous-slider"
               valueLabelDisplay="on"
               marks={marks}
-              color="secondary"
+              max={50}
               style={{
                 marginTop: 35,
                 color: "#4a4e69",
@@ -176,7 +181,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
               <Box fontStyle="italic">
                 {comment}n <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
                 <b>{selectedRate}%</b> of the population used at least 1 of the
-                16 illicit drugs* in 2016, which is <b>{difference}</b> than the
+                16 illicit drugs* in 2016, which is <b>{difference}</b> than the nationwide
                 median rate of {rateMedian}%.
                 <br />
                 <var style={{ marginTop: 5, fontSize: 12 }}>

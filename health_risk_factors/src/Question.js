@@ -84,9 +84,9 @@ export default function Question({ statement, area, options, data }) {
             {/* caption for answer */}
             <Box fontStyle="italic">
               In <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
-              <b>{selectedRate}%</b> of the population {" "}
-              {data.caption[i]}, which is <b>{difference}</b>{" "}
-              than the median rate of {rateMedian}%.
+              <b>{selectedRate}%</b> of the population {data.caption[i]} in 2016, which
+              is <b>{difference}</b> than the nationwide median rate of{" "}
+              {rateMedian}%.
             </Box>
           </div>
         );
