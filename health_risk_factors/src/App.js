@@ -13,6 +13,7 @@ import drinkImg from "../src/data/drinks.png";
 // palettes
 // https://colorswall.com/palette/24606/
 // https://colorswall.com/palette/24/
+// https://coolors.co/22223b-4a4e69-9a8c98-c9ada7-f2e9e4
 
 function App() {
   // animate effect
@@ -83,7 +84,6 @@ function App() {
   // process data - smoking
   const smokeData = processedData.map((item) => {
     return {
-      // change attribute name here
       phn_code15: item.phn_code15,
       phn_name: item.phn_name,
       never_smoked: item.smk_status_never_smoked,

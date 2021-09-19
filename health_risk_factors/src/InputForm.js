@@ -56,7 +56,6 @@ export default function InputForm() {
 
   return (
     <Grid container justifyContent="center">
-      //
       {/* https://stackoverflow.com/questions/56120213/set-material-ui-select-width */}
       <FormControl style={{ minWidth: 400, margin: 20 }}>
         {/* https://stackoverflow.com/questions/68740329/my-mui-select-component-doesnt-display-placeholder-or-label-props */}
