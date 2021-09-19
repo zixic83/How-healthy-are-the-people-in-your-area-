@@ -1,18 +1,18 @@
+import React, { useEffect, useState } from "react";
 import InputForm from "./InputForm";
 import Question from "./Question";
 import Forcast from "./Forcast";
 import { InputContext } from "./InputContext";
-import React, { useEffect, useState } from "react";
 import rawData from "../src/data/alcohol_drug_phn.json";
 import AOS from "aos";
-import {Typography, Tooltip } from "@material-ui/core";
+import { Typography, Tooltip } from "@material-ui/core";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import smokeImg from "../src/data/smoke2.png";
 import drinkImg from "../src/data/drinks.png";
+
+// palettes
 // https://colorswall.com/palette/24606/
-// https://icon-icons.com/icon/drink-alcohol-liquor-liquors-beverage/61956
-// https://icon-icons.com/icon/cigars-cigarettes-smoke/89717
-// https://foodwatch.com.au/blog/measures-and-conversions/item/what-s-a-standard-drink.html
+// https://colorswall.com/palette/24/
 
 function App() {
   // animate effect
@@ -95,12 +95,13 @@ function App() {
   const smokePropNames = ["never_smoked", "ex_smoker", "smoke_daily"];
 
   const smokeGraphData = {
-    title: "The proportion of tobacco smoking population by consumption levels in Australia in 2016",
+    title:
+      "The proportion of tobacco smoking population by consumption levels in Australia in 2016",
     stats: smokeData,
     areaLabels: areaLabels,
     propNames: smokePropNames,
     legendNames: ["Never smoked", "Ex-smoker", "Smoke weekly or less"],
-    caption: ['have never smoked','are ex-smokers','smoke weekly or less'],
+    caption: ["have never smoked", "are ex-smokers", "smoke weekly or less"],
     img: smokeImg,
   };
 

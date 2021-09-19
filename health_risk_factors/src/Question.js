@@ -11,22 +11,18 @@ import BarChart from "./BarChart";
 import median from "ml-array-median";
 import AOS from "aos";
 
-// https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
-// https://www.youtube.com/watch?v=sP7ANcTpJr8
-// https://stackoverflow.com/questions/25158435/paper-button-always-as-upper-case
-// https://stackoverflow.com/questions/63144968/how-to-change-button-color-onclick-material-ui-react
-
 const useStyles = makeStyles({
   button: {
+    // https://stackoverflow.com/questions/25158435/paper-button-always-as-upper-case
     textTransform: "none",
   },
 });
 
 export default function Question({ statement, area, options, data }) {
   const classes = useStyles();
-    useEffect(() => {
-      AOS.init({ duration: 2000 });
-    }, []);
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
 
   // process data
   let rates = [];
@@ -55,6 +51,7 @@ export default function Question({ statement, area, options, data }) {
   }
 
   // function for conditionally rendering charts
+  // https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
   const pickChart = () => {
     // return corresponding chart based on user choice
     for (let i = 0; i < rates.length; i++) {
@@ -74,7 +71,7 @@ export default function Question({ statement, area, options, data }) {
           selectedRate > rateMedian
             ? `${(selectedRate - rateMedian).toFixed(1)}% higher`
             : `${(rateMedian - selectedRate).toFixed(1)}% lower`;
-        
+
         return (
           <div data-aos="zoom-in">
             <BarChart
@@ -89,9 +86,9 @@ export default function Question({ statement, area, options, data }) {
             {/* caption for answer */}
             <Box fontStyle="italic">
               In <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
-              <b>{selectedRate}%</b> of the population {data.caption[i]} in 2016, which
-              is <b>{difference}</b> than the nationwide median rate of{" "}
-              {rateMedian}%.
+              <b>{selectedRate}%</b> of the population {data.caption[i]} in
+              2016, which is <b>{difference}</b> than the nationwide median rate
+              of {rateMedian}%.
             </Box>
           </div>
         );
@@ -105,6 +102,7 @@ export default function Question({ statement, area, options, data }) {
     setGraph(rates[e.currentTarget.value][0]);
 
     // update button based on user's selection
+    // https://stackoverflow.com/questions/63144968/how-to-change-button-color-onclick-material-ui-react
     let updatedButtons = [];
     for (let i = 0; i < buttonStatus.length; i++) {
       if (i === parseInt(e.currentTarget.value)) {
@@ -122,10 +120,12 @@ export default function Question({ statement, area, options, data }) {
       <Grid container>
         <Grid item xs={4}>
           <Box my={14} mr={5}>
-            <img src={data.img} alt="illustration" height={130}/>
+            <img src={data.img} alt="illustration" height={130} />
             {/*  Question for the users */}
-            <header style={{ fontFamily: "Book Antiqua", marginBottom: 7 }}>{statement}</header>
-            
+            <header style={{ fontFamily: "Book Antiqua", marginBottom: 7 }}>
+              {statement}
+            </header>
+
             <RadioGroup>
               {options.map((option, index) => {
                 return (
@@ -149,7 +149,9 @@ export default function Question({ statement, area, options, data }) {
               })}
             </RadioGroup>
             {/* additional footnote */}
-            <var style={{marginTop:5,fontSize:12}}>{data.footNote ? data.footNote:null}</var>
+            <var style={{ marginTop: 5, fontSize: 12 }}>
+              {data.footNote ? data.footNote : null}
+            </var>
           </Box>
         </Grid>
         <Grid item xs={8}>

@@ -3,11 +3,9 @@ import { Bar } from "react-chartjs-2";
 import { Box, Divider, Grid, Slider } from "@material-ui/core";
 import median from "ml-array-median";
 import drugImg from "../src/data/pills.png";
-// https://www.youtube.com/watch?v=b-lWuCAgyO8
-// https://stackoverflow.com/questions/60607586/set-typography-text-color-in-material-ui
-// https://icon-icons.com/icon/medical-band-aids/73910
-// https://github.com/chartjs/chartjs-plugin-annotation/issues/434
-// https://stackoverflow.com/questions/36676263/chart-js-v2-hiding-grid-lines
+
+
+
 
 export default function Forcast({ areaLabels, drugData, area }) {
   const [guess, setGuess] = useState(null);
@@ -98,6 +96,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
     ],
   };
 
+  // https://github.com/chartjs/chartjs-plugin-annotation/issues/434
   const options = {
     plugins: {
       annotation: {
@@ -134,6 +133,7 @@ export default function Forcast({ areaLabels, drugData, area }) {
         },
       },
       x: {
+        // https://stackoverflow.com/questions/36676263/chart-js-v2-hiding-grid-lines
         grid: {
           color: "rgba(0, 0, 0, 0)",
         },
@@ -155,10 +155,13 @@ export default function Forcast({ areaLabels, drugData, area }) {
             />
             {/*  Question for the users */}
             <header style={{ fontFamily: "Book Antiqua" }}>
-              What proportion of people have used illicit drugs in your area in 2016?
-              <p>Your Prediction (will be shown by a white dot on the graph) : </p>
+              What proportion of people have used illicit drugs in your area in
+              2016?
+              <p>
+                Your Prediction (will be shown by a white dot on the graph) :{" "}
+              </p>
             </header>
-
+            {/* https://www.youtube.com/watch?v=b-lWuCAgyO8 */}
             <Slider
               value={guess}
               onChange={(e, newValue) => setGuess(newValue)}
@@ -183,8 +186,9 @@ export default function Forcast({ areaLabels, drugData, area }) {
               <Box fontStyle="italic">
                 {comment}n <var style={{ color: "#FFA500" }}>{area}</var>,{" "}
                 <b>{selectedRate}%</b> of the population used at least 1 of the
-                16 illicit drugs* recently* in 2016, which is <b>{difference}</b> than the nationwide
-                median rate of {rateMedian}%.
+                16 illicit drugs* recently* in 2016, which is{" "}
+                <b>{difference}</b> than the nationwide median rate of{" "}
+                {rateMedian}%.
                 <br />
                 <var style={{ marginTop: 5, fontSize: 12 }}>
                   {footnote}{" "}
@@ -195,11 +199,10 @@ export default function Forcast({ areaLabels, drugData, area }) {
                     survey report
                   </a>
                   .
-                  <br />
-                  * 'recently' means in the last 12 months when the the survey was conducted.
+                  <br />* 'recently' means in the last 12 months when the the
+                  survey was conducted.
                 </var>
               </Box>
-              
             </>
           )}
         </Grid>
