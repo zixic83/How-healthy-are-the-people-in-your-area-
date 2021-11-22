@@ -8,7 +8,7 @@ import drugImg from "../src/data/pills.png";
 
 
 export default function Forcast({ areaLabels, drugData, area }) {
-  const [guess, setGuess] = useState(null);
+  const [guess, setGuess] = useState(0);
 
   // extract data
   const rate = drugData.map((item) => {
