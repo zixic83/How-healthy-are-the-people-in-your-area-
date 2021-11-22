@@ -1,0 +1,285 @@
+{
+  "type": "FeatureCollection",
+  "bbox": [0.0, 0.0, -1.0, -1.0],
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN101",
+        "phn_name": "Central and Eastern Sydney",
+        "perc": 15.6
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN102",
+        "phn_name": "Northern Sydney",
+        "perc": 18.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN103",
+        "phn_name": "Western Sydney",
+        "perc": 14.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN104",
+        "phn_name": "Nepean Blue Mountains",
+        "perc": 18.4
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN105",
+        "phn_name": "South Western Sydney",
+        "perc": 7.4
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN106",
+        "phn_name": "South Eastern NSW",
+        "perc": 16.4
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN107",
+        "phn_name": "Western NSW",
+        "perc": 20.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN108",
+        "phn_name": "Hunter New England and Central Coast",
+        "perc": 23.7
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN109",
+        "phn_name": "North Coast",
+        "perc": 22.5
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN110",
+        "phn_name": "Murrumbidgee",
+        "perc": null
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.10"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN201",
+        "phn_name": "North Western Melbourne",
+        "perc": 15.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.11"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN202",
+        "phn_name": "Eastern Melbourne",
+        "perc": 14.5
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.12"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN203",
+        "phn_name": "South Eastern Melbourne",
+        "perc": 13.0
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.13"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN204",
+        "phn_name": "Gippsland",
+        "perc": null
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.14"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN205",
+        "phn_name": "Murray",
+        "perc": 20.5
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.15"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN206",
+        "phn_name": "Western Victoria",
+        "perc": 16.6
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.16"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN301",
+        "phn_name": "Brisbane North",
+        "perc": 16.8
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.17"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN302",
+        "phn_name": "Brisbane South",
+        "perc": 16.5
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.18"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN303",
+        "phn_name": "Gold Coast",
+        "perc": 20.0
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.19"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN304",
+        "phn_name": "Darling Downs and West Moreton",
+        "perc": 10.2
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.20"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN305",
+        "phn_name": "Western Queensland",
+        "perc": null
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.21"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN306",
+        "phn_name": "Central Queensland, Wide Bay and Sunshine Coast",
+        "perc": 23.7
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.22"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN307",
+        "phn_name": "Northern Queensland",
+        "perc": 21.5
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.23"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN401",
+        "phn_name": "Adelaide",
+        "perc": 16.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.24"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN402",
+        "phn_name": "Country SA",
+        "perc": 17.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.25"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN501",
+        "phn_name": "Perth North",
+        "perc": 20.7
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.26"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN502",
+        "phn_name": "Perth South",
+        "perc": 18.5
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.27"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN503",
+        "phn_name": "Country WA",
+        "perc": 24.4
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.28"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN601",
+        "phn_name": "Tasmania",
+        "perc": 18.6
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.29"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN701",
+        "phn_name": "Northern Territory",
+        "perc": 19.3
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.30"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "phn_code": "PHN801",
+        "phn_name": "Australian Capital Territory",
+        "perc": 15.7
+      },
+      "id": "aihw_hrf_crude_perc_consume_two_std_drinks_phn_2014_15.31"
+    }
+  ]
+}
